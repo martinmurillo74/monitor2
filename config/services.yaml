@@ -25,3 +25,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    admin.chofer:
+        class: App\Admin\ChoferAdmin
+        arguments: [~, App\Entity\Chofer, App\Controller\ChoferAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Chofer }
+        public: true
