@@ -30,5 +30,40 @@ services:
         class: App\Admin\ChoferAdmin
         arguments: [~, App\Entity\Chofer, App\Controller\ChoferAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Chofer }
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Chofer, icon: '<span class="fa fa-database"></span>' }
+        public: true
+
+    admin.color:
+        class: App\Admin\ColorAdmin
+        arguments: [~, App\Entity\Color, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Color }
+        public: true
+
+    admin.empresa:
+        class: App\Admin\EmpresaAdmin
+        arguments: [~, App\Entity\Empresa, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Empresa }
+        public: true
+
+    admin.motivo:
+        class: App\Admin\MotivoAdmin
+        arguments: [~, App\Entity\Motivo, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Motivo }
+        public: true
+
+    admin.movil:
+        class: App\Admin\MovilAdmin
+        arguments: [~, App\Entity\Movil, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Movil }
+        public: true
+
+    admin.tiposervicio:
+        class: App\Admin\TiposervicioAdmin
+        arguments: [~, App\Entity\Tiposervicio, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Tiposervicio }
         public: true
