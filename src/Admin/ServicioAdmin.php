@@ -17,25 +17,32 @@ final class ServicioAdmin extends AbstractAdmin
         '_sort_order' => 'DESC',
         '_sort_by' => 'id',
     ];
+    
+    /*protected function configureDefaultFilterValues(array &$filterValues)
+    {
+	$filterValues['estado'] = [
+		'value' => 'Z',
+	];
+    }*/
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
             ->add('nrocaso')
-            ->add('clienteid')
+            //->add('clienteid')
             ->add('nombre')
-            ->add('tipoid')
-            ->add('tipo')
-            ->add('denunciante')
+            //->add('tipoid')
+            //->add('tipo')
+            //->add('denunciante')
             ->add('dominio')
-            ->add('marca')
-            ->add('color')
-            ->add('falla')
-            ->add('calle')
-            ->add('numero')
-            ->add('depto')
-            ->add('casa')
-            ->add('lote')
+            //->add('marca')
+            //->add('color')
+            //->add('falla')
+            //->add('calle')
+            //->add('numero')
+            //->add('depto')
+            //->add('casa')
+            /*->add('lote')
             ->add('manzana')
             ->add('localidad')
             ->add('provincia')
@@ -49,9 +56,9 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('hsllamada')
             ->add('hsasignacion')
             ->add('hsarribo')
-            ->add('hsfinalizacion')
+            ->add('hsfinalizacion')*/
             ->add('estado')
-            ->add('mes')
+            /*->add('mes')
             ->add('anio')
             ->add('opini')
             ->add('opfin')
@@ -95,7 +102,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('porque')
             ->add('facturaid')
             ->add('ciermov')
-            ->add('otros')
+            ->add('otros')*/
             ;
     }
 
@@ -126,7 +133,7 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('kilometros')
             //->add('telefono')
             //->add('piso')
-            ->add('provinciadest')
+            //->add('provinciadest')
             ->add('hsllamada')
             //->add('hsasignacion')
             //->add('hsarribo')
@@ -179,7 +186,7 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('otros')
             ->add('_action', null, [
                 'actions' => [
-                    'show' => [],
+                    //'show' => [],
                     'edit' => [],
                     'delete' => [],
                 ],

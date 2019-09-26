@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tipocliente
+ * Marca
  *
- * @ORM\Table(name="tipocliente")
+ * @ORM\Table(name="marca")
  * @ORM\Entity
  */
-class Tipocliente
+class Marca
 {
     /**
      * @var int
@@ -24,28 +24,28 @@ class Tipocliente
     /**
      * @var string
      *
-     * @ORM\Column(name="TIPO", type="string", length=45, nullable=false)
+     * @ORM\Column(name="MARCA", type="string", length=100, nullable=false)
      */
-    private $tipo;
-
+    private $marca;
+   
     public function __toString(): ?string
     {
-        return $this->tipo;
-    }      
-    
+        return $this->marca;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTipo(): ?string
+    public function getMarca(): ?string
     {
-        return $this->tipo;
+        return $this->marca;
     }
 
-    public function setTipo(string $tipo): self
+    public function setMarca(string $marca): self
     {
-        $this->tipo = $tipo;
+        $this->marca = $marca;
 
         return $this;
     }

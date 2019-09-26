@@ -54,6 +54,20 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Config, label: Movil }
         public: true
 
+    admin.marca:
+        class: App\Admin\MarcaAdmin
+        arguments: [~, App\Entity\Marca, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Marca }
+        public: true
+
+    admin.modelo:
+        class: App\Admin\ModeloAdmin
+        arguments: [~, App\Entity\Modelo, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Modelo }
+        public: true
+
     admin.empresa:
         class: App\Admin\EmpresaAdmin
         arguments: [~, App\Entity\Empresa, ~]
@@ -83,8 +97,8 @@ services:
         public: true
 
     admin.tipo_cliente:
-        class: App\Admin\TipoClienteAdmin
-        arguments: [~, App\Entity\TipoCliente, ~]
+        class: App\Admin\TipoclienteAdmin
+        arguments: [~, App\Entity\Tipocliente, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Servicios, label: Tipo Cliente }
         public: true
