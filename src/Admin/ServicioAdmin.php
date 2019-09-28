@@ -196,15 +196,25 @@ final class ServicioAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            ->add('nrocaso')
+	    ->add('nrocaso')
+	    ->add('tipocli')
+	    ->add('empresaid')
+            ->add('empresa')
+	    ->add('denunciante')
+	    
+            
             ->add('clienteid')
             ->add('nombre')
+	    ->add('telefono')
+	    ->add('marca')
+	    ->add('modelo')
+	    ->add('color')
+	    ->add('dominio')	    
+	    
             ->add('tipoid')
             ->add('tipo')
-            ->add('denunciante')
-            ->add('dominio')
-            ->add('marca')
-            ->add('color')
+            
+            
             ->add('falla')
             ->add('calle')
             ->add('numero')
@@ -217,7 +227,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('destino')
             ->add('localidaddest')
             ->add('kilometros')
-            ->add('telefono')
+            
             ->add('id')
             ->add('piso')
             ->add('provinciadest')
@@ -237,9 +247,8 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('kmini')
             ->add('kmfin')
             ->add('codaut')
-            ->add('empresaid')
-            ->add('empresa')
-            ->add('tipocli')
+            
+            
             ->add('tipodist')
             ->add('obs')
             ->add('abrloc1')
@@ -254,7 +263,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('kmtot')
             ->add('perf')
             ->add('hsliq')
-            ->add('modelo')
+            
             ->add('hsalta')
             ->add('inactivo')
             ->add('ciermec')
