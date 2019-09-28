@@ -210,21 +210,23 @@ final class ServicioAdmin extends AbstractAdmin
 	    ->add('modelo')
 	    ->add('color')
 	    ->add('dominio')	    
-	    
-            ->add('tipoid')
-            ->add('tipo')
-            
-            
-            ->add('falla')
+
+	    ->add('provincia')
+            ->add('localidad')
             ->add('calle')
             ->add('numero')
             ->add('depto')
-            ->add('casa')
             ->add('lote')
             ->add('manzana')
-            ->add('localidad')
-            ->add('provincia')
+            ->add('casa')
+	    
+            ->add('falla')
             ->add('destino')
+	    
+            ->add('tipoid')
+            ->add('tipo')            
+            
+
             ->add('localidaddest')
             ->add('kilometros')
             
