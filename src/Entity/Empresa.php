@@ -55,7 +55,7 @@ class Empresa
      * @ORM\Column(name="TELEFONO", type="string", length=20, nullable=true, options={"default"="NULL"})
      */
     private $telefono = NULL;
-    
+
     public function __toString(): ?string
     {
         return $this->nombre;

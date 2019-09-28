@@ -17,25 +17,32 @@ final class ServicioAdmin extends AbstractAdmin
         '_sort_order' => 'DESC',
         '_sort_by' => 'id',
     ];
+    
+    /*protected function configureDefaultFilterValues(array &$filterValues)
+    {
+	$filterValues['estado'] = [
+		'value' => 'Z',
+	];
+    }*/
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
             ->add('nrocaso')
-            ->add('clienteid')
+            //->add('clienteid')
             ->add('nombre')
-            ->add('tipoid')
-            ->add('tipo')
-            ->add('denunciante')
+            //->add('tipoid')
+            //->add('tipo')
+            //->add('denunciante')
             ->add('dominio')
-            ->add('marca')
-            ->add('color')
-            ->add('falla')
-            ->add('calle')
-            ->add('numero')
-            ->add('depto')
-            ->add('casa')
-            ->add('lote')
+            //->add('marca')
+            //->add('color')
+            //->add('falla')
+            //->add('calle')
+            //->add('numero')
+            //->add('depto')
+            //->add('casa')
+            /*->add('lote')
             ->add('manzana')
             ->add('localidad')
             ->add('provincia')
@@ -49,9 +56,9 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('hsllamada')
             ->add('hsasignacion')
             ->add('hsarribo')
-            ->add('hsfinalizacion')
+            ->add('hsfinalizacion')*/
             ->add('estado')
-            ->add('mes')
+            /*->add('mes')
             ->add('anio')
             ->add('opini')
             ->add('opfin')
@@ -95,7 +102,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('porque')
             ->add('facturaid')
             ->add('ciermov')
-            ->add('otros')
+            ->add('otros')*/
             ;
     }
 
@@ -126,7 +133,7 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('kilometros')
             //->add('telefono')
             //->add('piso')
-            ->add('provinciadest')
+            //->add('provinciadest')
             ->add('hsllamada')
             //->add('hsasignacion')
             //->add('hsarribo')
@@ -179,7 +186,7 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('otros')
             ->add('_action', null, [
                 'actions' => [
-                    'show' => [],
+                    //'show' => [],
                     'edit' => [],
                     'delete' => [],
                 ],
@@ -189,15 +196,25 @@ final class ServicioAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            ->add('nrocaso')
+	    ->add('nrocaso')
+	    ->add('tipocli')
+	    ->add('empresaid')
+            ->add('empresa')
+	    ->add('denunciante')
+	    
+            
             ->add('clienteid')
             ->add('nombre')
+	    ->add('telefono')
+	    ->add('marca')
+	    ->add('modelo')
+	    ->add('color')
+	    ->add('dominio')	    
+	    
             ->add('tipoid')
             ->add('tipo')
-            ->add('denunciante')
-            ->add('dominio')
-            ->add('marca')
-            ->add('color')
+            
+            
             ->add('falla')
             ->add('calle')
             ->add('numero')
@@ -210,7 +227,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('destino')
             ->add('localidaddest')
             ->add('kilometros')
-            ->add('telefono')
+            
             ->add('id')
             ->add('piso')
             ->add('provinciadest')
@@ -230,9 +247,8 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('kmini')
             ->add('kmfin')
             ->add('codaut')
-            ->add('empresaid')
-            ->add('empresa')
-            ->add('tipocli')
+            
+            
             ->add('tipodist')
             ->add('obs')
             ->add('abrloc1')
@@ -247,7 +263,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('kmtot')
             ->add('perf')
             ->add('hsliq')
-            ->add('modelo')
+            
             ->add('hsalta')
             ->add('inactivo')
             ->add('ciermec')

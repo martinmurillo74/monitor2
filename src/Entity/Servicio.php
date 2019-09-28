@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Servicio
  *
- * @ORM\Table(name="servicio")
+ * @ORM\Table(name="servicio", indexes={@ORM\Index(name="IDX_CB86F22A8790FA60", columns={"tipocli"})})
  * @ORM\Entity
  */
 class Servicio
@@ -315,16 +315,6 @@ class Servicio
      */
     private $empresa = NULL;
 
-     /**
-     * @var \TipoCliente
-     *
-     * @ORM\ManyToOne(targetEntity="TipoCliente")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="tipocli", referencedColumnName="ID")
-     * })
-     */
-    private $tipocli = NULL;
-
     /**
      * @var int|null
      *
@@ -542,6 +532,16 @@ class Servicio
      */
     private $otros = NULL;
 
+    /**
+     * @var \Tipocliente
+     *
+     * @ORM\ManyToOne(targetEntity="Tipocliente")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tipocli", referencedColumnName="ID")
+     * })
+     */
+    private $tipocli;
+
     public function getNrocaso(): ?int
     {
         return $this->nrocaso;
@@ -554,7 +554,7 @@ class Servicio
         return $this;
     }
 
-    public function getClienteid()
+    public function getClienteid(): ?int
     {
         return $this->clienteid;
     }
@@ -1051,18 +1051,6 @@ class Servicio
         return $this;
     }
 
-    public function getTipocli()
-    {
-        return $this->tipocli;
-    }
-
-    public function setTipocli(?int $tipocli): self
-    {
-        $this->tipocli = $tipocli;
-
-        return $this;
-    }
-
     public function getTipodist(): ?int
     {
         return $this->tipodist;
@@ -1431,6 +1419,18 @@ class Servicio
     public function setOtros(?string $otros): self
     {
         $this->otros = $otros;
+
+        return $this;
+    }
+
+    public function getTipocli(): ?Tipocliente
+    {
+        return $this->tipocli;
+    }
+
+    public function setTipocli(?Tipocliente $tipocli): self
+    {
+        $this->tipocli = $tipocli;
 
         return $this;
     }

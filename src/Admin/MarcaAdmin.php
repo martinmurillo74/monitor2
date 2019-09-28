@@ -10,14 +10,14 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-final class TipoclienteAdmin extends AbstractAdmin
+final class MarcaAdmin extends AbstractAdmin
 {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
             ->add('id')
-            ->add('tipo')
+            ->add('marca')
             ;
     }
 
@@ -25,7 +25,7 @@ final class TipoclienteAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('tipo')
+            ->add('marca')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -39,7 +39,7 @@ final class TipoclienteAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('id')
-            ->add('tipo')
+            ->add('marca')
             ;
     }
 
@@ -47,7 +47,7 @@ final class TipoclienteAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('tipo')
+            ->add('marca')
             ;
     }
 }
