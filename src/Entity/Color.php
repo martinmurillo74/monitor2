@@ -27,6 +27,11 @@ class Color
      * @ORM\Column(name="NOMBRE", type="string", length=30, nullable=true, options={"default"="NULL"})
      */
     private $nombre = NULL;
+    
+    public function __toString(): ?string
+    {
+        return $this->nombre;
+    }
 
     public function getId(): ?int
     {

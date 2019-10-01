@@ -13,10 +13,10 @@ use Sonata\AdminBundle\Show\ShowMapper;
 final class ServicioAdmin extends AbstractAdmin
 {
 
-    protected $datagridValues = [
+    /*protected $datagridValues = [
         '_sort_order' => 'DESC',
         '_sort_by' => 'id',
-    ];
+    ];*/
     
     /*public function createQuery($context = 'list'){
 	$query = parent::createQuery($context);
@@ -36,7 +36,7 @@ final class ServicioAdmin extends AbstractAdmin
     
     }*/
     
-    protected function configureDefaultFilterValues(array &$filterValues)
+    /*protected function configureDefaultFilterValues(array &$filterValues)
     {
  	$now = new \DateTime('now');
     
@@ -51,6 +51,17 @@ final class ServicioAdmin extends AbstractAdmin
 	$filterValues['mes'] = [
 		'value' => $now->format('m'),
 	];
+    }*/
+    
+    public function getFilterParameters(){
+	$now = new \DateTime('now');
+	$this->datagridValues = array_merge(
+		array(
+			'tipoestado' => array('value' => '1'), 
+			'anio' => array('value' => $now->format('Y')),
+			'mes' => array('value' => $now->format('m'))
+		), $this->datagridValues);
+	return parent::getFilterParameters();
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
@@ -62,7 +73,7 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('tipoid')
             //->add('tipo')
             //->add('denunciante')
-            ->add('dominio')
+            //->add('dominio')
             //->add('marca')
             //->add('color')
             //->add('falla')
@@ -85,9 +96,9 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('hsasignacion')
             ->add('hsarribo')
             ->add('hsfinalizacion')*/
-            ->add('tipoestado', null, array('label' => 'Estado'))
-	    ->add('anio', null, array('label' => 'Año'))
-            ->add('mes', null, array('label' => 'Mes'))            
+            ->add('tipoestado', null, array('label' => 'Estado', 'show_filter' => true))
+	    ->add('anio', null, array('label' => 'Año', 'show_filter' => true))
+            ->add('mes', null, array('label' => 'Mes', 'show_filter' => true))            
             /*->add('opini')
             ->add('opfin')
             ->add('movilid')
@@ -146,7 +157,8 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('denunciante')
             ->add('dominio')
             ->add('marca')
-            ->add('color')
+            //->add('color')
+	    ->add('colorid', null, array('label'=>'Color'))
             ->add('falla')
             //->add('calle')
             //->add('numero')
@@ -215,7 +227,7 @@ final class ServicioAdmin extends AbstractAdmin
 	    ->add('tipoestado', null, array('label'=>'Estado'))
             ->add('_action', null, [
                 'actions' => [
-                    //'show' => [],
+                    'show' => [],
                     'edit' => [],
                     'delete' => [],
                 ],

@@ -74,6 +74,17 @@ class Servicio
      * @ORM\Column(name="COLOR", type="string", length=30, nullable=true, options={"default"="NULL"})
      */
     private $color = NULL;
+    
+    /**
+     * @var \Color
+     *
+     * @ORM\ManyToOne(targetEntity="Color")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="colorid", referencedColumnName="ID")
+     * })
+     */
+    private $colorid = NULL;    
+    
 
     /**
      * @var string|null
@@ -666,6 +677,18 @@ class Servicio
     public function setColor(?string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+    
+    public function getColorid()
+    {
+        return $this->colorid;
+    }
+
+    public function setColorid($colorid): self
+    {
+        $this->colorid = $colorid;
 
         return $this;
     }

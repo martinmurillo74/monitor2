@@ -72,7 +72,7 @@ services:
         class: App\Admin\EmpresaAdmin
         arguments: [~, App\Entity\Empresa, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Empresas, label: Empresas, icon: '<span class="fa fa-suitcase"></span>' }
+            - { name: sonata.admin, manager_type: orm, group: Empresas, label: Empresas, icon: '<i class="fa fa-suitcase"></i>' }
         public: true		
 
     admin.cliente:
@@ -86,7 +86,7 @@ services:
         class: App\Admin\ServicioAdmin
         arguments: [~, App\Entity\Servicio, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Servicios, icon: '<span class="fa fa-truck"></span>' }
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Servicios, icon: '<i class="fa fa-truck"></i>' }
         public: true
 
     admin.tiposervicio:
@@ -114,7 +114,7 @@ services:
         class: App\Admin\ChoferAdmin
         arguments: [~, App\Entity\Chofer, App\Controller\ChoferAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Chofer, icon: '<span class="fa fa-database"></span>' }
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Chofer, icon: '<i class="fa fa-database"></i>' }
         public: true
 
     admin.movil:

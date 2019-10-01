@@ -22,4 +22,9 @@ return [
     FOS\UserBundle\FOSUserBundle::class => ['all' => true],
     Sonata\EasyExtendsBundle\SonataEasyExtendsBundle::class => ['dev' => true, 'test' => true],
     Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle::class => ['all' => true],
+    FOS\RestBundle\FOSRestBundle::class => ['all' => true],
+    Nelmio\ApiDocBundle\NelmioApiDocBundle::class => ['all' => true],    
+    Sonata\UserBundle\SonataUserBundle::class => ['all' => true],
+    
+    App\Application\Sonata\UserBundle\ApplicationSonataUserBundle::class => ['all' => true],
 ];
