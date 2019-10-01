@@ -253,16 +253,22 @@ class Servicio
     private $opfin = NULL;
 
     /**
-     * @var int|null
+     * @var \Movil
      *
-     * @ORM\Column(name="MOVILID", type="integer", nullable=true, options={"default"="NULL"})
+     * @ORM\ManyToOne(targetEntity="Movil")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="movilid", referencedColumnName="ID")
+     * })
      */
     private $movilid = NULL;
 
     /**
-     * @var int|null
+     * @var \Chofer
      *
-     * @ORM\Column(name="CHOFERID", type="integer", nullable=true, options={"default"="NULL"})
+     * @ORM\ManyToOne(targetEntity="Chofer")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="choferid", referencedColumnName="ID")
+     * })
      */
     private $choferid = NULL;
 
@@ -302,9 +308,12 @@ class Servicio
     private $codaut = NULL;
 
     /**
-     * @var int|null
+     * @var \Empresa
      *
-     * @ORM\Column(name="EMPRESAID", type="integer", nullable=true, options={"default"="NULL"})
+     * @ORM\ManyToOne(targetEntity="Empresa")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="empresaid", referencedColumnName="ID")
+     * })
      */
     private $empresaid = NULL;
 
@@ -541,6 +550,17 @@ class Servicio
      * })
      */
     private $tipocli;
+    
+    /**
+     * @var \Tipoestado
+     *
+     * @ORM\ManyToOne(targetEntity="Tipoestado")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tipoestado", referencedColumnName="ID")
+     * })
+     */
+    private $tipoestado;    
+    
 
     public function getNrocaso(): ?int
     {
@@ -943,24 +963,24 @@ class Servicio
         return $this;
     }
 
-    public function getMovilid(): ?int
+    public function getMovilid()
     {
         return $this->movilid;
     }
 
-    public function setMovilid(?int $movilid): self
+    public function setMovilid($movilid): self
     {
         $this->movilid = $movilid;
 
         return $this;
     }
 
-    public function getChoferid(): ?int
+    public function getChoferid()
     {
         return $this->choferid;
     }
 
-    public function setChoferid(?int $choferid): self
+    public function setChoferid($choferid): self
     {
         $this->choferid = $choferid;
 
@@ -1027,12 +1047,12 @@ class Servicio
         return $this;
     }
 
-    public function getEmpresaid(): ?int
+    public function getEmpresaid()
     {
         return $this->empresaid;
     }
 
-    public function setEmpresaid(?int $empresaid): self
+    public function setEmpresaid($empresaid): self
     {
         $this->empresaid = $empresaid;
 
@@ -1435,5 +1455,16 @@ class Servicio
         return $this;
     }
 
+    public function getTipoestado(): ?Tipoestado
+    {
+        return $this->tipoestado;
+    }
+
+    public function setTipoestado(?Tipoestado $tipoestado): self
+    {
+        $this->tipoestado = $tipoestado;
+
+        return $this;
+    }
 
 }

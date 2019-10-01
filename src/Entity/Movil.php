@@ -55,18 +55,23 @@ class Movil
      * @ORM\Column(name="INACTIVO", type="smallint", nullable=true, options={"default"="NULL"})
      */
     private $inactivo = NULL;
+    
+    public function __toString()
+    {
+        return $this->nombre;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNombre(): ?string
+    public function getNombre()
     {
         return $this->nombre;
     }
 
-    public function setNombre(?string $nombre): self
+    public function setNombre($nombre): self
     {
         $this->nombre = $nombre;
 

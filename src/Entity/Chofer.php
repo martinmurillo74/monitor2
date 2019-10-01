@@ -90,6 +90,11 @@ class Chofer
      * @ORM\Column(name="OBS", type="text", length=16777215, nullable=true, options={"default"="NULL"})
      */
     private $obs = NULL;
+    
+    public function __toString(): ?string
+    {
+        return $this->apellido;
+    }
 
     public function getId(): ?int
     {

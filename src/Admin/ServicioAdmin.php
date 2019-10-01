@@ -18,12 +18,40 @@ final class ServicioAdmin extends AbstractAdmin
         '_sort_by' => 'id',
     ];
     
-    /*protected function configureDefaultFilterValues(array &$filterValues)
-    {
-	$filterValues['estado'] = [
-		'value' => 'Z',
-	];
+    /*public function createQuery($context = 'list'){
+	$query = parent::createQuery($context);
+        $rootAlias = $query->getRootAliases()[0];
+	$now = new \DateTime('now');
+        
+            $query
+                ->andWhere($query->expr()->eq($rootAlias . '.tipoestado', ':tipoestado'))
+		->andWhere($query->expr()->eq($rootAlias . '.anio', ':anio'))
+		->andWhere($query->expr()->eq($rootAlias . '.mes', ':mes'))
+                ->setParameter('tipoestado', 1)
+		->setParameter('anio', $now->format('Y'))
+		->setParameter('mes', $now->format('m'))
+                ;
+        
+        return $query;    
+    
     }*/
+    
+    protected function configureDefaultFilterValues(array &$filterValues)
+    {
+ 	$now = new \DateTime('now');
+    
+	$filterValues['tipoestado'] = [
+		'value' => '1',
+	];
+	
+	$filterValues['anio'] = [
+		'value' => $now->format('Y'),
+	];
+	
+	$filterValues['mes'] = [
+		'value' => $now->format('m'),
+	];
+    }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
@@ -57,10 +85,10 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('hsasignacion')
             ->add('hsarribo')
             ->add('hsfinalizacion')*/
-            ->add('estado')
-            /*->add('mes')
-            ->add('anio')
-            ->add('opini')
+            ->add('tipoestado', null, array('label' => 'Estado'))
+	    ->add('anio', null, array('label' => 'Año'))
+            ->add('mes', null, array('label' => 'Mes'))            
+            /*->add('opini')
             ->add('opfin')
             ->add('movilid')
             ->add('choferid')
@@ -109,8 +137,8 @@ final class ServicioAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-	    ->add('id', null, array('label'=>'Caso'))
-            //->add('nrocaso')
+	    //->add('id', null, array('label'=>'Caso'))
+            ->add('nrocaso', null, array('label'=>'Caso'))
             //->add('clienteid')
             ->add('nombre')
             //->add('tipoid')
@@ -134,7 +162,7 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('telefono')
             //->add('piso')
             //->add('provinciadest')
-            ->add('hsllamada')
+            ->add('hsllamada', null, array('label'=>'Llamada'))
             //->add('hsasignacion')
             //->add('hsarribo')
             //->add('hsfinalizacion')
@@ -143,15 +171,15 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('anio')
             //->add('opini')
             //->add('opfin')
-            //->add('movilid')
-            //->add('choferid')
+            ->add('movilid', null, array('label'=>'Movil'))
+            ->add('choferid', null, array('label'=>'Chofer'))
             //->add('movil')
             //->add('chofer')
             //->add('kmini')
             //->add('kmfin')
             //->add('codaut')
-            //->add('empresaid')
-            ->add('empresa')
+            ->add('empresaid', null, array('label'=>'Empresa'))
+            //->add('empresa')
             //->add('tipocli')
             //->add('tipodist')
             //->add('obs')
@@ -184,6 +212,7 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('facturaid')
             //->add('ciermov')
             //->add('otros')
+	    ->add('tipoestado', null, array('label'=>'Estado'))
             ->add('_action', null, [
                 'actions' => [
                     //'show' => [],
@@ -223,7 +252,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('falla')
             ->add('destino')
 	    
-            ->add('tipoid')
+            /*->add('tipoid')
             ->add('tipo')            
             
 
@@ -281,7 +310,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('porque')
             ->add('facturaid')
             ->add('ciermov')
-            ->add('otros')
+            ->add('otros')*/
             ;
     }
 

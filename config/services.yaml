@@ -26,13 +26,6 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    admin.chofer:
-        class: App\Admin\ChoferAdmin
-        arguments: [~, App\Entity\Chofer, App\Controller\ChoferAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Config, label: Chofer, icon: '<span class="fa fa-database"></span>' }
-        public: true
-
     admin.color:
         class: App\Admin\ColorAdmin
         arguments: [~, App\Entity\Color, ~]
@@ -47,13 +40,6 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Config, label: Motivo }
         public: true
 
-    admin.movil:
-        class: App\Admin\MovilAdmin
-        arguments: [~, App\Entity\Movil, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Config, label: Movil }
-        public: true
-
     admin.marca:
         class: App\Admin\MarcaAdmin
         arguments: [~, App\Entity\Marca, ~]
@@ -66,6 +52,20 @@ services:
         arguments: [~, App\Entity\Modelo, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Config, label: Modelo }
+        public: true
+
+    admin.provincia:
+        class: App\Admin\ProvinciaAdmin
+        arguments: [~, App\Entity\Provincia, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Provincia }
+        public: true
+
+    admin.localidad:
+        class: App\Admin\LocalidadAdmin
+        arguments: [~, App\Entity\Localidad, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Localidad }
         public: true
 
     admin.empresa:
@@ -93,7 +93,7 @@ services:
         class: App\Admin\TiposervicioAdmin
         arguments: [~, App\Entity\Tiposervicio, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Tiposervicio }
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Tipo Servicio }
         public: true
 
     admin.tipo_cliente:
@@ -101,4 +101,25 @@ services:
         arguments: [~, App\Entity\Tipocliente, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Servicios, label: Tipo Cliente }
+        public: true
+
+    admin.tipoestado:
+        class: App\Admin\TipoestadoAdmin
+        arguments: [~, App\Entity\Tipoestado, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Tipo Estado }
+        public: true
+
+    admin.chofer:
+        class: App\Admin\ChoferAdmin
+        arguments: [~, App\Entity\Chofer, App\Controller\ChoferAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Chofer, icon: '<span class="fa fa-database"></span>' }
+        public: true
+
+    admin.movil:
+        class: App\Admin\MovilAdmin
+        arguments: [~, App\Entity\Movil, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Movil }
         public: true
