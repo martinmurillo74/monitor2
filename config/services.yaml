@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -123,3 +124,116 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Servicios, label: Movil }
         public: true
+=======
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    admin.chofer:
+        class: App\Admin\ChoferAdmin
+        arguments: [~, App\Entity\Chofer, App\Controller\ChoferAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Chofer, icon: '<span class="fa fa-database"></span>' }
+        public: true
+
+    admin.color:
+        class: App\Admin\ColorAdmin
+        arguments: [~, App\Entity\Color, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Color }
+        public: true
+
+    admin.motivo:
+        class: App\Admin\MotivoAdmin
+        arguments: [~, App\Entity\Motivo, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Motivo }
+        public: true
+
+    admin.movil:
+        class: App\Admin\MovilAdmin
+        arguments: [~, App\Entity\Movil, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Movil }
+        public: true
+
+    admin.marca:
+        class: App\Admin\MarcaAdmin
+        arguments: [~, App\Entity\Marca, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Marca }
+        public: true
+
+    admin.modelo:
+        class: App\Admin\ModeloAdmin
+        arguments: [~, App\Entity\Modelo, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Modelo }
+        public: true
+
+    admin.empresa:
+        class: App\Admin\EmpresaAdmin
+        arguments: [~, App\Entity\Empresa, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Empresas, label: Empresas, icon: '<span class="fa fa-suitcase"></span>' }
+        public: true		
+
+    admin.cliente:
+        class: App\Admin\ClienteAdmin
+        arguments: [~, App\Entity\Cliente, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Empresas, label: Clientes }
+        public: true
+
+    admin.servicio:
+        class: App\Admin\ServicioAdmin
+        arguments: [~, App\Entity\Servicio, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Servicios, icon: '<span class="fa fa-truck"></span>' }
+        public: true
+
+    admin.tiposervicio:
+        class: App\Admin\TiposervicioAdmin
+        arguments: [~, App\Entity\Tiposervicio, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Tiposervicio }
+        public: true
+
+    admin.tipo_cliente:
+        class: App\Admin\TipoclienteAdmin
+        arguments: [~, App\Entity\Tipocliente, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Tipo Cliente }
+        public: true
+        
+    my.serviciosubscriber:
+        class: App\EventListener\ServicioSubscriber
+        #arguments: ["@doctrine.orm.entity_manager", @service_container]
+        arguments: ['@service_container']
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+>>>>>>> 51ad8fe070756666a39abcfcd047553950d0766e
