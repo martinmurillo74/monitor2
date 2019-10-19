@@ -10,16 +10,14 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-final class LocalidadAdmin extends AbstractAdmin
+final class DistanciaAdmin extends AbstractAdmin
 {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
             ->add('id')
-	    ->add('provinciaid')
-            ->add('localidad')
-            ->add('abrev')
+            ->add('distancia')
             ;
     }
 
@@ -27,9 +25,7 @@ final class LocalidadAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('localidad')
-            ->add('abrev')
-	    ->add('provinciaid')
+            ->add('distancia')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -42,10 +38,8 @@ final class LocalidadAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            //->add('id')
-	    ->add('provinciaid')
-            ->add('localidad')
-            ->add('abrev')
+            ->add('id')
+            ->add('distancia')
             ;
     }
 
@@ -53,8 +47,7 @@ final class LocalidadAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('localidad')
-            ->add('abrev')
+            ->add('distancia')
             ;
     }
 }

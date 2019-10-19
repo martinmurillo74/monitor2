@@ -37,6 +37,11 @@ class Modelo
      * })
      */
     private $marcaid;
+    
+    public function __toString()
+    {
+        return $this->modelo;
+    }
 
     public function getId(): ?int
     {

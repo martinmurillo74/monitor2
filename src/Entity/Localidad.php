@@ -44,7 +44,13 @@ class Localidad
      * })
      */
     private $provinciaid; 
-    
+
+    public function __toString(): ?string
+    {
+	if ($this->localidad != $this->provinciaid){
+		return $this->localidad.' ('.$this->provinciaid.')';
+	}else return $this->localidad;
+    }    
 
     public function getId(): ?int
     {

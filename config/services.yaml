@@ -68,6 +68,20 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Config, label: Localidad }
         public: true
 
+    admin.falla:
+        class: App\Admin\FallaAdmin
+        arguments: [~, App\Entity\Falla, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Falla }
+        public: true
+
+    admin.distancia:
+        class: App\Admin\DistanciaAdmin
+        arguments: [~, App\Entity\Distancia, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: Distancia }
+        public: true
+
     admin.empresa:
         class: App\Admin\EmpresaAdmin
         arguments: [~, App\Entity\Empresa, ~]
@@ -130,3 +144,5 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+

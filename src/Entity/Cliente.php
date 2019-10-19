@@ -93,6 +93,11 @@ class Cliente
      * })
      */
     private $empresa;
+    
+    public function __toString()
+    {
+        return $this->nombre.' - '.$this->dominio;
+    }
 
     public function getId(): ?int
     {

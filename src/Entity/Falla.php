@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tiposervicio
+ * Tipoestado
  *
- * @ORM\Table(name="tiposervicio")
+ * @ORM\Table(name="falla")
  * @ORM\Entity
  */
-class Tiposervicio
+class Falla
 {
     /**
      * @var int
@@ -24,13 +24,13 @@ class Tiposervicio
     /**
      * @var string|null
      *
-     * @ORM\Column(name="NOMBRE", type="string", length=30, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="falla", type="string", length=200, nullable=true, options={"default"="NULL"})
      */
-    private $nombre = NULL;
+    private $falla = NULL;
     
     public function __toString(): ?string
     {
-        return $this->nombre;
+        return $this->falla;
     }
 
     public function getId(): ?int
@@ -38,14 +38,14 @@ class Tiposervicio
         return $this->id;
     }
 
-    public function getNombre(): ?string
+    public function getFalla(): ?string
     {
-        return $this->nombre;
+        return $this->falla;
     }
 
-    public function setNombre(?string $nombre): self
+    public function setFalla(?string $falla): self
     {
-        $this->nombre = $nombre;
+        $this->falla = $falla;
 
         return $this;
     }

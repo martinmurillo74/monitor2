@@ -4,37 +4,53 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
-use Sonata\AdminBundle\Admin\AbstractAdmin;
+/*use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+use Sonata\AdminBundle\Admin\AdminInterface;
+
+use Sonata\CoreBundle\Form\Type\DatePickerType;*/
+
+
+use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\LocaleType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\FormTypeInterface;
+
+
 final class ServicioAdmin extends AbstractAdmin
 {
 
-    /*protected $datagridValues = [
+    protected $datagridValues = [
+	'_page' => 1,
         '_sort_order' => 'DESC',
-        '_sort_by' => 'id',
-    ];*/
+        '_sort_by' => 'nrocaso',
+    ];
     
-    /*public function createQuery($context = 'list'){
+    public function createQuery($context = 'list'){
 	$query = parent::createQuery($context);
+	
         $rootAlias = $query->getRootAliases()[0];
-	$now = new \DateTime('now');
-        
+	
+	if(count($this->getRequest()->query->all()) == 0){
             $query
-                ->andWhere($query->expr()->eq($rootAlias . '.tipoestado', ':tipoestado'))
-		->andWhere($query->expr()->eq($rootAlias . '.anio', ':anio'))
-		->andWhere($query->expr()->eq($rootAlias . '.mes', ':mes'))
-                ->setParameter('tipoestado', 1)
-		->setParameter('anio', $now->format('Y'))
-		->setParameter('mes', $now->format('m'))
-                ;
-        
-        return $query;    
+                ->andWhere($query->expr()->isNull($rootAlias . '.hsfinalizacion'));   
+	}
+	return $query;
     
-    }*/
+    }
     
     /*protected function configureDefaultFilterValues(array &$filterValues)
     {
@@ -53,7 +69,7 @@ final class ServicioAdmin extends AbstractAdmin
 	];
     }*/
     
-    public function getFilterParameters(){
+    /*public function getFilterParameters(){
 	$now = new \DateTime('now');
 	$this->datagridValues = array_merge(
 		array(
@@ -62,7 +78,7 @@ final class ServicioAdmin extends AbstractAdmin
 			'mes' => array('value' => $now->format('m'))
 		), $this->datagridValues);
 	return parent::getFilterParameters();
-    }
+    }*/
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
@@ -83,9 +99,9 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('casa')
             /*->add('lote')
             ->add('manzana')
-            ->add('localidad')
+            ->add('localidad')*/
             ->add('provincia')
-            ->add('destino')
+           /*->add('destino')
             ->add('localidaddest')
             ->add('kilometros')
             ->add('telefono')
@@ -94,11 +110,11 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('provinciadest')
             ->add('hsllamada')
             ->add('hsasignacion')
-            ->add('hsarribo')
-            ->add('hsfinalizacion')*/
-            ->add('tipoestado', null, array('label' => 'Estado', 'show_filter' => true))
-	    ->add('anio', null, array('label' => 'Año', 'show_filter' => true))
-            ->add('mes', null, array('label' => 'Mes', 'show_filter' => true))            
+            ->add('hsarribo')*/
+            ->add('hsfinalizacion')
+            ->add('tipoestado', null, array('label' => 'Estado'/*, 'show_filter' => true*/))
+	    ->add('anio', null, array('label' => 'Año'/*, 'show_filter' => true*/))
+            ->add('mes', null, array('label' => 'Mes'/*, 'show_filter' => true*/))            
             /*->add('opini')
             ->add('opfin')
             ->add('movilid')
@@ -152,29 +168,32 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('nrocaso', null, array('label'=>'Caso'))
             //->add('clienteid')
             ->add('nombre')
-            //->add('tipoid')
+            //->add('tipoid', null, array('label'=>'Tipo Servicio'))
             //->add('tipo')
             //->add('denunciante')
             ->add('dominio')
-            ->add('marca')
+            //->add('marca')
+	    ->add('marcaid', null, array('label'=>'Marca'))
+	    ->add('modeloid', null, array('label'=>'Modelo'))
             //->add('color')
-	    ->add('colorid', null, array('label'=>'Color'))
-            ->add('falla')
+	    //->add('colorid', null, array('label'=>'Color'))
+            ->add('fallaid', null, array('label'=>'Falla'))
             //->add('calle')
             //->add('numero')
             //->add('depto')
             //->add('casa')
             //->add('lote')
             //->add('manzana')
-            //->add('localidad')
-            //->add('provincia')
+            //->add('localidadid')
+	    ->add('localidadid', null, array('label'=>'Provincia'))
+            //->add('provincia', null, array('label'=>'Provincia'))
             ->add('destino')
             //->add('localidaddest')
             //->add('kilometros')
             //->add('telefono')
             //->add('piso')
             //->add('provinciadest')
-            ->add('hsllamada', null, array('label'=>'Llamada'))
+            ->add('hsllamada', 'date', array('label'=>'Llamada', 'format' => 'd/m/Y h:m'))
             //->add('hsasignacion')
             //->add('hsarribo')
             //->add('hsfinalizacion')
@@ -193,7 +212,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('empresaid', null, array('label'=>'Empresa'))
             //->add('empresa')
             //->add('tipocli')
-            //->add('tipodist')
+            ->add('tipodist', null, array('label'=>'Distancia'))
             //->add('obs')
             //->add('abrloc1')
             //->add('abrloc2')
@@ -224,105 +243,70 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('facturaid')
             //->add('ciermov')
             //->add('otros')
-	    ->add('tipoestado', null, array('label'=>'Estado'))
+	    //->add('tipoestado', null, array('label'=>'Estado'))
             ->add('_action', null, [
                 'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                    'delete' => [],
+                    'show' => ['template' => '/ServicioAdmin/list__action_show.html.twig',],
+                    'edit' => ['template' => '/ServicioAdmin/list__action_edit.html.twig',],
+                    'delete' => ['template' => '/ServicioAdmin/list__action_delete.html.twig',],
                 ],
             ]);
     }
 
     protected function configureFormFields(FormMapper $formMapper): void
     {
+    
+	$now = new \DateTime();
+    
         $formMapper
-	    ->add('nrocaso')
-	    ->add('tipocli')
-	    ->add('empresaid')
-            ->add('empresa')
-	    ->add('denunciante')
+	    ->add('tipocli', null, array('label'=>'Tipo Cliente'))
+	    ->add('empresaid', null, array('label'=>'Empresa'))            
+	    //->add('hsllamada', DatePickerType::class, Array('label'=>'Llamada', 'format'=>'dd/MM/y'))
 	    
-            
-            ->add('clienteid')
-            ->add('nombre')
-	    ->add('telefono')
-	    ->add('marca')
-	    ->add('modelo')
-	    ->add('color')
-	    ->add('dominio')	    
+	    
+	    ->add('hsllamada', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Llamada'))
+	    
+	    ->add('codaut', null, array('label'=>'Autorización'))
+	    ->add('denunciante', null, array('label'=>'Denunciante'))
 
-	    ->add('provincia')
-            ->add('localidad')
+            ->add('clienteid', null, array('label'=>'Asegurado'))
+	    ->add('telefono')
+	    ->add('marcaid', null, array('label'=>'Marca'))
+	    ->add('modeloid', null, array('label'=>'Modelo'))
+	    ->add('colorid', null, array('label'=>'Color'))
+
+	    ->add('provinciaid')
+            ->add('localidadid')
             ->add('calle')
             ->add('numero')
             ->add('depto')
             ->add('lote')
             ->add('manzana')
             ->add('casa')
-	    
             ->add('falla')
-            ->add('destino')
 	    
-            /*->add('tipoid')
-            ->add('tipo')            
-            
+	    ->add('provinciadestid')
+            ->add('localidaddestid')	    
+            ->add('destino')
 
-            ->add('localidaddest')
-            ->add('kilometros')
-            
-            ->add('id')
-            ->add('piso')
-            ->add('provinciadest')
-            ->add('hsllamada')
-            ->add('hsasignacion')
-            ->add('hsarribo')
-            ->add('hsfinalizacion')
-            ->add('estado')
-            ->add('mes')
-            ->add('anio')
-            ->add('opini')
-            ->add('opfin')
-            ->add('movilid')
-            ->add('choferid')
-            ->add('movil')
-            ->add('chofer')
             ->add('kmini')
             ->add('kmfin')
-            ->add('codaut')
-            
-            
-            ->add('tipodist')
-            ->add('obs')
-            ->add('abrloc1')
-            ->add('abrloc2')
-            ->add('movilnro')
-            ->add('abrchof')
-            ->add('servfin')
-            ->add('impcob')
-            ->add('kmreal')
-            ->add('kmaju1')
-            ->add('kmaju2')
-            ->add('kmtot')
-            ->add('perf')
-            ->add('hsliq')
-            
-            ->add('hsalta')
-            ->add('inactivo')
-            ->add('ciermec')
-            ->add('mecfecha')
-            ->add('opcierre')
-            ->add('cerrado')
-            ->add('hsprogramacion')
-            ->add('impbase')
-            ->add('segundos')
-            ->add('tablamodificada')
-            ->add('usuario')
-            ->add('revisar')
-            ->add('porque')
-            ->add('facturaid')
-            ->add('ciermov')
-            ->add('otros')*/
+
+            ->add('hsasignacion', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Asignación'))
+            ->add('hsarribo', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Arribo'))
+            ->add('hsfinalizacion', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Finalización'))
+
+
+            ->add('movilid')
+            ->add('choferid', null, array('label'=>'Mecánico'))
+            ->add('tipoid', null, array('label'=>'Tipo Servicio'))
+	    ->add('tipoestado', null, array('label'=>'Estado'))
+	    
+	    
+	    ->add('impbase')
+	    ->add('impcob')
+	    
+	    ->add('obs')
             ;
     }
 

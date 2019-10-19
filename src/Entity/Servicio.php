@@ -20,9 +20,12 @@ class Servicio
     private $nrocaso = NULL;
 
     /**
-     * @var int|null
+     * @var \Cliente
      *
-     * @ORM\Column(name="CLIENTEID", type="integer", nullable=true, options={"default"="NULL"})
+     * @ORM\ManyToOne(targetEntity="Cliente")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="CLIENTEID", referencedColumnName="ID")
+     * })
      */
     private $clienteid = NULL;
 
@@ -34,9 +37,12 @@ class Servicio
     private $nombre = NULL;
 
     /**
-     * @var int|null
+     * @var \Tiposervicio
      *
-     * @ORM\Column(name="TIPOID", type="integer", nullable=true, options={"default"="NULL"})
+     * @ORM\ManyToOne(targetEntity="Tiposervicio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="TIPOID", referencedColumnName="ID")
+     * })
      */
     private $tipoid = NULL;
 
@@ -67,6 +73,17 @@ class Servicio
      * @ORM\Column(name="MARCA", type="string", length=20, nullable=true, options={"default"="NULL"})
      */
     private $marca = NULL;
+    
+    /**
+     * @var \Marca
+     *
+     * @ORM\ManyToOne(targetEntity="Marca")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="marcaid", referencedColumnName="ID")
+     * })
+     */
+    private $marcaid = NULL;
+
 
     /**
      * @var string|null
@@ -92,6 +109,16 @@ class Servicio
      * @ORM\Column(name="FALLA", type="string", length=100, nullable=true, options={"default"="NULL"})
      */
     private $falla = NULL;
+    
+    /**
+     * @var \Falla
+     *
+     * @ORM\ManyToOne(targetEntity="Falla")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fallaid", referencedColumnName="ID")
+     * })
+     */
+    private $fallaid = NULL;
 
     /**
      * @var string|null
@@ -141,6 +168,16 @@ class Servicio
      * @ORM\Column(name="LOCALIDAD", type="string", length=30, nullable=true, options={"default"="NULL"})
      */
     private $localidad = NULL;
+    
+    /**
+     * @var \Localidad
+     *
+     * @ORM\ManyToOne(targetEntity="Localidad")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="localidadid", referencedColumnName="ID")
+     * })
+     */
+    private $localidadid = NULL;
 
     /**
      * @var string|null
@@ -148,6 +185,16 @@ class Servicio
      * @ORM\Column(name="PROVINCIA", type="string", length=30, nullable=true, options={"default"="NULL"})
      */
     private $provincia = NULL;
+    
+    /**
+     * @var \Provincia
+     *
+     * @ORM\ManyToOne(targetEntity="Provincia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="provinciaid", referencedColumnName="ID")
+     * })
+     */
+    private $provinciaid = NULL;
 
     /**
      * @var string|null
@@ -162,6 +209,18 @@ class Servicio
      * @ORM\Column(name="LOCALIDADDEST", type="string", length=30, nullable=true, options={"default"="NULL"})
      */
     private $localidaddest = NULL;
+    
+    
+    /**
+     * @var \Localidad
+     *
+     * @ORM\ManyToOne(targetEntity="Localidad")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="localidaddestid", referencedColumnName="ID")
+     * })
+     */
+    private $localidaddestid = NULL;
+    
 
     /**
      * @var int|null
@@ -199,6 +258,17 @@ class Servicio
      * @ORM\Column(name="PROVINCIADEST", type="string", length=30, nullable=true, options={"default"="NULL"})
      */
     private $provinciadest = NULL;
+    
+ 
+    /**
+     * @var \Provincia
+     *
+     * @ORM\ManyToOne(targetEntity="Provincia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="provinciadestid", referencedColumnName="ID")
+     * })
+     */
+    private $provinciadestid = NULL;
 
     /**
      * @var \DateTime|null
@@ -336,9 +406,12 @@ class Servicio
     private $empresa = NULL;
 
     /**
-     * @var int|null
+     * @var \Distancia
      *
-     * @ORM\Column(name="TIPODIST", type="integer", nullable=true, options={"default"="NULL"})
+     * @ORM\ManyToOne(targetEntity="Distancia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tipodist", referencedColumnName="id")
+     * })
      */
     private $tipodist = NULL;
 
@@ -439,6 +512,18 @@ class Servicio
      * @ORM\Column(name="MODELO", type="string", length=20, nullable=true, options={"default"="NULL"})
      */
     private $modelo = NULL;
+    
+    
+    /**
+     * @var \Modelo
+     *
+     * @ORM\ManyToOne(targetEntity="Modelo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="modeloid", referencedColumnName="ID")
+     * })
+     */
+    private $modeloid = NULL;
+    
 
     /**
      * @var \DateTime|null
@@ -573,9 +658,9 @@ class Servicio
     private $tipoestado;    
     
 
-    public function getNrocaso(): ?int
+    public function getNrocaso()
     {
-        return $this->nrocaso;
+        return $this->nrocaso.'-'.$this->mes.'-'.$this->anio;
     }
 
     public function setNrocaso(?int $nrocaso): self
@@ -585,12 +670,12 @@ class Servicio
         return $this;
     }
 
-    public function getClienteid(): ?int
+    public function getClienteid()
     {
         return $this->clienteid;
     }
 
-    public function setClienteid(?int $clienteid): self
+    public function setClienteid($clienteid): self
     {
         $this->clienteid = $clienteid;
 
@@ -609,12 +694,12 @@ class Servicio
         return $this;
     }
 
-    public function getTipoid(): ?int
+    public function getTipoid()
     {
         return $this->tipoid;
     }
 
-    public function setTipoid(?int $tipoid): self
+    public function setTipoid($tipoid)
     {
         $this->tipoid = $tipoid;
 
@@ -668,6 +753,18 @@ class Servicio
 
         return $this;
     }
+    
+    public function getMarcaid()
+    {
+        return $this->marcaid;
+    }
+
+    public function setMarcaid($marcaid): self
+    {
+        $this->marcaid = $marcaid;
+
+        return $this;
+    }
 
     public function getColor(): ?string
     {
@@ -701,6 +798,18 @@ class Servicio
     public function setFalla(?string $falla): self
     {
         $this->falla = $falla;
+
+        return $this;
+    }
+    
+    public function getFallaid()
+    {
+        return $this->fallaid;
+    }
+
+    public function setFallaid($fallaid): self
+    {
+        $this->fallaid = $fallaid;
 
         return $this;
     }
@@ -788,6 +897,18 @@ class Servicio
 
         return $this;
     }
+    
+    public function getLocalidadid()
+    {
+        return $this->localidadid;
+    }
+
+    public function setLocalidadid($localidadid): self
+    {
+        $this->localidadid = $localidadid;
+
+        return $this;
+    }
 
     public function getProvincia(): ?string
     {
@@ -800,6 +921,18 @@ class Servicio
 
         return $this;
     }
+    
+    public function getProvinciaid()
+    {
+        return $this->provinciaid;
+    }
+
+    public function setProvinciaid($provinciaid): self
+    {
+        $this->provinciaid = $provinciaid;
+
+        return $this;
+    }    
 
     public function getDestino(): ?string
     {
@@ -821,6 +954,18 @@ class Servicio
     public function setLocalidaddest(?string $localidaddest): self
     {
         $this->localidaddest = $localidaddest;
+
+        return $this;
+    }
+    
+    public function getLocalidaddestid()
+    {
+        return $this->localidaddestid;
+    }
+
+    public function setLocalidaddestid($localidaddestid)
+    {
+        $this->localidaddestid = $localidaddestid;
 
         return $this;
     }
@@ -874,6 +1019,18 @@ class Servicio
     public function setProvinciadest(?string $provinciadest): self
     {
         $this->provinciadest = $provinciadest;
+
+        return $this;
+    }
+    
+    public function getProvinciadestid()
+    {
+        return $this->provinciadestid;
+    }
+
+    public function setProvinciadestid($provinciadestid)
+    {
+        $this->provinciadestid = $provinciadestid;
 
         return $this;
     }
@@ -1094,12 +1251,12 @@ class Servicio
         return $this;
     }
 
-    public function getTipodist(): ?int
+    public function getTipodist()
     {
         return $this->tipodist;
     }
 
-    public function setTipodist(?int $tipodist): self
+    public function setTipodist($tipodist)
     {
         $this->tipodist = $tipodist;
 
@@ -1274,6 +1431,18 @@ class Servicio
         return $this;
     }
 
+    public function getModeloid()
+    {
+        return $this->modeloid;
+    }
+
+    public function setModeloid($modeloid): self
+    {
+        $this->modeloid = $modeloid;
+
+        return $this;
+    }    
+    
     public function getHsalta(): ?\DateTimeInterface
     {
         return $this->hsalta;
