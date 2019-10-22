@@ -4,3 +4,69 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
         - '@SonataCore/Form/datepicker.html.twig'
+        - ApplicationToolsBundle:Form:dependent_filtered_entity_widget.html.twig
+        - ApplicationToolsBundle:Form:editable_combobox_widget.html.twig
+        - ApplicationToolsBundle:Form:formfield_cloacker_widget.html.twig
+        - ApplicationToolsBundle:Form:file_field_ext.html.twig
+
+application_tools:
+    dependent_filtered_entities:
+        modelo_by_marca:
+            form_options:
+                entity_alias: modelo_by_marca
+                class: App:Modelo
+                entity_field: modelo
+                parent_entity_field: marcaid
+                parent_form_field: marcaid
+                choice_label: modelo
+                no_result_msg: 'Sin resultados'
+                placeholder: '--seleccionar--'
+            search_options:
+                role: ROLE_USER
+                order_field: modelo
+                order_direction: ASC
+
+        cliente_by_empresa:
+            form_options:
+                entity_alias: cliente_by_empresa
+                class: App:Cliente
+                entity_field: nombre
+                parent_entity_field: empresaid
+                parent_form_field: empresaid
+                choice_label: nombre
+                no_result_msg: 'Sin resultados'
+                placeholder: '--seleccionar--'
+            search_options:
+                role: ROLE_USER
+                order_field: nombre
+                order_direction: ASC
+
+        localidad_by_provincia:
+            form_options:
+                entity_alias: localidad_by_provincia
+                class: App:Localidad
+                entity_field: localidad
+                parent_entity_field: provinciaid
+                parent_form_field: provinciaid
+                choice_label: localidad
+                no_result_msg: 'Sin resultados'
+                placeholder: '--seleccionar--'
+            search_options:
+                role: ROLE_USER
+                order_field: localidad
+                order_direction: ASC
+
+        localidaddest_by_provinciadest:
+            form_options:
+                entity_alias: localidaddest_by_provinciadest
+                class: App:Localidad
+                entity_field: localidad
+                parent_entity_field: provinciaid
+                parent_form_field: provinciadestid
+                choice_label: localidad
+                no_result_msg: 'Sin resultados'
+                placeholder: '--seleccionar--'
+            search_options:
+                role: ROLE_USER
+                order_field: localidad
+                order_direction: ASC

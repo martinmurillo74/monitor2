@@ -27,4 +27,5 @@ return [
     Sonata\UserBundle\SonataUserBundle::class => ['all' => true],
     
     App\Application\Sonata\UserBundle\ApplicationSonataUserBundle::class => ['all' => true],
+	App\Application\ToolsBundle\ApplicationToolsBundle::class => ['all' => true],
 ];

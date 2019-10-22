@@ -92,7 +92,7 @@ class Cliente
      *   @ORM\JoinColumn(name="empresa_id", referencedColumnName="ID")
      * })
      */
-    private $empresa;
+    private $empresaid;
     
     public function __toString()
     {
@@ -212,14 +212,14 @@ class Cliente
         return $this;
     }
 
-    public function getEmpresa(): ?Empresa
+    public function getEmpresaid(): ?Empresa
     {
-        return $this->empresa;
+        return $this->empresaid;
     }
 
-    public function setEmpresa(?Empresa $empresa): self
+    public function setEmpresa(?Empresa $empresaid): self
     {
-        $this->empresa = $empresa;
+        $this->empresaid = $empresaid;
 
         return $this;
     }

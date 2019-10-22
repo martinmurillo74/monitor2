@@ -35,6 +35,7 @@ class ServicioSubscriber implements EventSubscriber {
     }
 
     public function index(LifecycleEventArgs $args) {
+	
         $entity = $args->getEntity();
         if ($this->isEntitySupported($entity)) {
             // Obtengo el año actual

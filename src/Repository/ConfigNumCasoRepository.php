@@ -22,33 +22,33 @@ class ConfigNumCasoRepository extends \Doctrine\ORM\EntityRepository
         
         if(!empty($r)){
             
-        $em->refresh($query->getSingleResult());
-            
-        $sr = $query->getSingleResult();
-        $ultimonumero = $sr->getUltimonumero();
-        
-        $qb2 = $this->createQueryBuilder('m');  
-        $qb2->update()
-                ->set('m.ultimonumero', $qb2->expr()->literal($ultimonumero + 1))
-                ->where('m.anio = :anio')
-                ->andWhere('m.mes = :mes')
-                ->setParameter(':anio', $anio)
-                ->setParameter(':mes', $mes)
-                ->getQuery()->execute();
-        
-        $em->refresh($sr);
-        
-        $qb3 = $this->createQueryBuilder('m');
-        $qb3->andWhere('m.anio = :anio')
-            ->andWhere('m.mes = :mes')
-            ->setParameter(':anio', $anio)
-            ->setParameter(':mes', $mes);
-        $query3 = $qb3->getQuery();
-        $sr2 = $query3->getSingleResult();
-        $ultimonumero1 = $sr2->getUltimonumero();
-        
-             
-        return  $ultimonumero1;  
+			$em->refresh($query->getSingleResult());
+				
+			$sr = $query->getSingleResult();
+			$ultimonumero = $sr->getUltimonumero();
+			
+			$qb2 = $this->createQueryBuilder('m');  
+			$qb2->update()
+					->set('m.ultimonumero', $qb2->expr()->literal($ultimonumero + 1))
+					->where('m.anio = :anio')
+					->andWhere('m.mes = :mes')
+					->setParameter(':anio', $anio)
+					->setParameter(':mes', $mes)
+					->getQuery()->execute();
+			
+			$em->refresh($sr);
+			
+			$qb3 = $this->createQueryBuilder('m');
+			$qb3->andWhere('m.anio = :anio')
+				->andWhere('m.mes = :mes')
+				->setParameter(':anio', $anio)
+				->setParameter(':mes', $mes);
+			$query3 = $qb3->getQuery();
+			$sr2 = $query3->getSingleResult();
+			$ultimonumero1 = $sr2->getUltimonumero();
+			
+				 
+			return  $ultimonumero1;  
         
         }else{
             return false;

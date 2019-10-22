@@ -5,6 +5,8 @@ sonata_admin:
             - { type: sonata.admin.block.admin_list, position: left }
     templates:
         layout: standard_layout.html.twig
+    options:
+        use_select2: false
 sonata_block:
     blocks:
         sonata.admin.block.admin_list:

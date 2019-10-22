@@ -1,0 +1,320 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends '@SonataAdmin/CRUD/base_edit.html.twig' %}
+
+{% block form %}
+
+    {{ sonata_block_render_event('sonata.admin.edit.form.top', { 'admin': admin, 'object': object }) }}
+
+    {# NEXT_MAJOR: remove default filter #}
+    {% set url = objectId|default(admin.id(object)) is not null ? 'edit' : 'create' %}
+
+    {% if not admin.hasRoute(url) %}
+        <div>
+            {{ "form_not_available"|trans({}, "SonataAdminBundle") }}
+        </div>
+    {% else %}
+
+
+<form
+              {% if sonata_admin.adminPool.getOption('form_type') == 'horizontal' %}class="form-horizontal"{% endif %}
+              role="form"
+              {# NEXT_MAJOR: remove default filter #}
+              action="{% block sonata_form_action_url %}{{ admin.generateUrl(url, {'id': objectId|default(admin.id(object)), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}{% endblock %}"
+              {% if form.vars.multipart %} enctype="multipart/form-data"{% endif %}
+              method="POST"
+              {% if not sonata_admin.adminPool.getOption('html5_validate') %}novalidate="novalidate"{% endif %}
+              {% block sonata_form_attributes %}{% endblock %}
+              >
+
+
+<div class="row">
+	<div class="col-md-12" id="accordion">
+				<div class="panel box box-primary" style="margin-bottom: 0px;">
+					<div class="box-header">
+						<h4 class="box-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
+							Datos Generales
+							</a>
+						</h4>
+					</div>
+					<div id="collapseOne" class="" aria-expanded="true" style="">
+						<div class="box-body" id="collapseOne">
+							<div class="col-md-2">
+								{{ form_row(form.tipocli) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.empresaid) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.hsllamada) }}
+							</div>
+
+							<div class="col-md-2">
+								{{ form_row(form.codaut) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.denunciante) }}
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="panel box box-primary" style="margin-bottom: 0px;">
+					<div class="box-header">
+						<h4 class="box-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseTo" aria-expanded="false" class="collapsed">
+							Asegurado
+							</a>
+						</h4>
+					</div>
+					<div id="collapseTo" class="" aria-expanded="true" style="">
+						<div class="box-body">
+							<div class="col-md-4">
+								{{ form_row(form.clienteid) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.nombre) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.dominio) }}
+							</div>
+						</div>
+						<div class="box-body">
+							<div class="col-md-2">
+								{{ form_row(form.telefono) }}
+							</div>
+
+							<div class="col-md-2">
+								{{ form_row(form.marcaid) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.modeloid) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.colorid) }}
+							</div>
+						</div>
+					</div>					
+				</div>
+				
+				
+				<div class="panel box box-primary" style="margin-bottom: 0px;">
+					<div class="box-header">
+						<h4 class="box-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" class="collapsed">
+							Datos de Asistencia
+							</a>
+						</h4>
+					</div>
+					<div id="collapseThree" class="" aria-expanded="true" style="">
+						<div class="box-body">
+							<div class="col-md-2">
+								{{ form_row(form.provinciaid) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.localidadid) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.calle) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.numero) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.depto) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.lote) }}
+							</div>
+						</div>
+
+					
+						<div class="box-body">
+							<div class="col-md-2">
+								{{ form_row(form.manzana) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.casa) }}
+							</div>
+							<div class="col-md-4">
+								{{ form_row(form.fallaid) }}
+							</div>
+						</div>	
+						
+						
+						<div class="box-body">
+							<div class="col-md-2">
+								{{ form_row(form.provinciadestid) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.localidaddestid) }}
+							</div>
+							<div class="col-md-4">
+								{{ form_row(form.destino) }}
+							</div>
+						</div>	
+					</div>	
+				</div>
+
+
+				<div class="panel box box-primary" style="margin-bottom: 0px;">
+					<div class="box-header">
+						<h4 class="box-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" class="collapsed">
+							Datos de Km
+							</a>
+						</h4>
+					</div>
+					<div id="collapseFour" class="" aria-expanded="true" style="">
+						<div class="box-body">
+							<div class="col-md-2">
+								{{ form_row(form.kmini) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.kmfin) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.hsasignacion) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.hsarribo) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.hsfinalizacion) }}
+							</div>						
+						</div>
+					</div>	
+				</div>
+				
+	
+				<div class="panel box box-primary" style="margin-bottom: 0px;">
+					<div class="box-header">
+						<h4 class="box-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" class="collapsed">
+							Recursos
+							</a>
+						</h4>
+					</div>
+					<div id="collapseFive" class="" aria-expanded="true" style="">
+						<div class="box-body">
+							<div class="col-md-2">
+								{{ form_row(form.movilid) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.choferid) }}
+							</div>												
+						</div>	
+                    </div>							
+				</div>
+				
+				
+				<div class="panel box box-primary" style="margin-bottom: 0px;">
+					<div class="box-header">
+						<h4 class="box-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" class="collapsed">
+							Conclusiones
+							</a>
+						</h4>
+					</div>
+					<div id="collapseSix" class="" aria-expanded="true" style="">
+						<div class="box-body">
+							<div class="col-md-2">
+								{{ form_row(form.tipoid) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.tipoestado) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.impbase) }}
+							</div>
+							<div class="col-md-2">
+								{{ form_row(form.impcob) }}
+							</div>	
+							<div class="col-md-2">
+								{{ form_row(form.tipodist) }}
+							</div>							
+						</div>	
+						<div class="box-body">
+							<div class="col-md-8">
+								{{ form_row(form.obs) }}
+							</div>						
+						</div>	
+					</div>	
+				</div>
+
+
+				
+	</div>
+</div>
+
+{% block formactions %}
+                <div class="sonata-ba-form-actions well well-small form-actions">
+                {% block sonata_form_actions %}
+                    {% if app.request.isxmlhttprequest %}
+                        {# NEXT_MAJOR: remove default filter #}
+                        {% if objectId|default(admin.id(object)) is not null %}
+                            <button type="submit" class="btn btn-success" name="btn_update"><i class="fa fa-save" aria-hidden="true"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
+                            {% if admin.hasRoute('delete') and admin.hasAccess('delete', object) %}
+                                {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+                                <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}">
+                                    <i class="fa fa-minus-circle" aria-hidden="true"></i> {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <button type="submit" class="btn btn-success" name="btn_create"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
+                        {% endif %}
+                    {% else %}
+                        {% if admin.supportsPreviewMode %}
+                            <button class="btn btn-info persist-preview" name="btn_preview" type="submit">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                {{ 'btn_preview'|trans({}, 'SonataAdminBundle') }}
+                            </button>
+                        {% endif %}
+                        {# NEXT_MAJOR: remove default filter #}
+                        {% if objectId|default(admin.id(object)) is not null %}
+                            <button type="submit" class="btn btn-success" name="btn_update_and_edit"><i class="fa fa-save" aria-hidden="true"></i> {{ 'btn_update_and_edit_again'|trans({}, 'SonataAdminBundle') }}</button>
+
+                            {% if admin.hasRoute('list') and admin.hasAccess('list') %}
+                                <button type="submit" class="btn btn-success" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list" aria-hidden="true"></i> {{ 'btn_update_and_return_to_list'|trans({}, 'SonataAdminBundle') }}</button>
+                            {% endif %}
+
+                            {% if admin.hasRoute('delete') and admin.hasAccess('delete', object) %}
+                                {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+                                <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}"><i class="fa fa-minus-circle" aria-hidden="true"></i> {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
+                            {% endif %}
+
+                            {% if admin.isAclEnabled() and admin.hasRoute('acl') and admin.hasAccess('acl', object) %}
+                                <a class="btn btn-info" href="{{ admin.generateObjectUrl('acl', object) }}"><i class="fa fa-users" aria-hidden="true"></i> {{ 'link_edit_acl'|trans({}, 'SonataAdminBundle') }}</a>
+                            {% endif %}
+                        {% else %}
+                            {% if admin.hasroute('edit') and admin.hasAccess('edit') %}
+                                <button class="btn btn-success" type="submit" name="btn_create_and_edit"><i class="fa fa-save" aria-hidden="true"></i> {{ 'btn_create_and_edit_again'|trans({}, 'SonataAdminBundle') }}</button>
+                            {% endif %}
+                            {% if admin.hasroute('list') and admin.hasAccess('list') %}
+                                <button type="submit" class="btn btn-success" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list" aria-hidden="true"></i> {{ 'btn_create_and_return_to_list'|trans({}, 'SonataAdminBundle') }}</button>
+                            {% endif %}
+                            <button class="btn btn-success" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{ 'btn_create_and_create_a_new_one'|trans({}, 'SonataAdminBundle') }}</button>
+                        {% endif %}
+                    {% endif %}
+                {% endblock %}
+                </div>
+            {% endblock formactions %}
+			{{ form_widget(form._token) }}
+			{{ form_end(form, {'render_rest': false}) }}
+        </form>
+	{% endif %}
+	
+	{{ sonata_block_render_event('sonata.admin.edit.form.bottom', { 'admin': admin, 'object': object }) }}
+
+{% endblock %}

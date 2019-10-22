@@ -16,7 +16,7 @@ final class ClienteAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-            ->add('empresa')
+            ->add('empresaid')
             ->add('id')
             ->add('nombre')
             ->add('dni')
@@ -38,7 +38,7 @@ final class ClienteAdmin extends AbstractAdmin
             //->add('dni')
             //->add('tipo')
             ->add('dominio')
-			->add('empresa')
+			->add('empresaid')
             ->add('poliza')
             ->add('vigencia')
             //->add('tipo2')
@@ -56,7 +56,7 @@ final class ClienteAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            ->add('empresa')
+            ->add('empresaid')
             ->add('id')
             ->add('nombre')
             ->add('dni')
@@ -73,7 +73,7 @@ final class ClienteAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-            ->add('empresa')
+            ->add('empresaid')
             ->add('id')
             ->add('nombre')
             ->add('dni')

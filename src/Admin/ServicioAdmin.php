@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
-/*use Sonata\AdminBundle\Admin\AbstractAdmin;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
-
-use Sonata\AdminBundle\Admin\AdminInterface;
-
-use Sonata\CoreBundle\Form\Type\DatePickerType;*/
-
-
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\AdminBundle\Form\Type\ModelListType;
+
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
+
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,6 +22,8 @@ use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormTypeInterface;
 
+use App\Application\ToolsBundle\Form\Type\DependentFilteredEntityType;
+
 
 final class ServicioAdmin extends AbstractAdmin
 {
@@ -36,7 +31,7 @@ final class ServicioAdmin extends AbstractAdmin
     protected $datagridValues = [
 	'_page' => 1,
         '_sort_order' => 'DESC',
-        '_sort_by' => 'nrocaso',
+        '_sort_by' => 'id',
     ];
     
     public function createQuery($context = 'list'){
@@ -44,10 +39,10 @@ final class ServicioAdmin extends AbstractAdmin
 	
         $rootAlias = $query->getRootAliases()[0];
 	
-	if(count($this->getRequest()->query->all()) == 0){
+	//if(count($this->getRequest()->query->all()) == 0){
             $query
                 ->andWhere($query->expr()->isNull($rootAlias . '.hsfinalizacion'));   
-	}
+	//}
 	return $query;
     
     }
@@ -177,7 +172,7 @@ final class ServicioAdmin extends AbstractAdmin
 	    ->add('modeloid', null, array('label'=>'Modelo'))
             //->add('color')
 	    //->add('colorid', null, array('label'=>'Color'))
-            ->add('fallaid', null, array('label'=>'Falla'))
+            //->add('fallaid', null, array('label'=>'Falla'))
             //->add('calle')
             //->add('numero')
             //->add('depto')
@@ -185,7 +180,7 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('lote')
             //->add('manzana')
             //->add('localidadid')
-	    ->add('localidadid', null, array('label'=>'Provincia'))
+	    //->add('localidadid', null, array('label'=>'Provincia'))
             //->add('provincia', null, array('label'=>'Provincia'))
             ->add('destino')
             //->add('localidaddest')
@@ -202,7 +197,7 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('anio')
             //->add('opini')
             //->add('opfin')
-            ->add('movilid', null, array('label'=>'Movil'))
+            //->add('movilid', null, array('label'=>'Movil'))
             ->add('choferid', null, array('label'=>'Chofer'))
             //->add('movil')
             //->add('chofer')
@@ -212,7 +207,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('empresaid', null, array('label'=>'Empresa'))
             //->add('empresa')
             //->add('tipocli')
-            ->add('tipodist', null, array('label'=>'Distancia'))
+            //->add('tipodist', null, array('label'=>'Distancia'))
             //->add('obs')
             //->add('abrloc1')
             //->add('abrloc2')
@@ -246,7 +241,7 @@ final class ServicioAdmin extends AbstractAdmin
 	    //->add('tipoestado', null, array('label'=>'Estado'))
             ->add('_action', null, [
                 'actions' => [
-                    'show' => ['template' => '/ServicioAdmin/list__action_show.html.twig',],
+                    //'show' => ['template' => '/ServicioAdmin/list__action_show.html.twig',],
                     'edit' => ['template' => '/ServicioAdmin/list__action_edit.html.twig',],
                     'delete' => ['template' => '/ServicioAdmin/list__action_delete.html.twig',],
                 ],
@@ -259,55 +254,110 @@ final class ServicioAdmin extends AbstractAdmin
 	$now = new \DateTime();
     
         $formMapper
-	    ->add('tipocli', null, array('label'=>'Tipo Cliente'))
-	    ->add('empresaid', null, array('label'=>'Empresa'))            
-	    //->add('hsllamada', DatePickerType::class, Array('label'=>'Llamada', 'format'=>'dd/MM/y'))
-	    
-	    
-	    ->add('hsllamada', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Llamada'))
-	    
-	    ->add('codaut', null, array('label'=>'Autorización'))
-	    ->add('denunciante', null, array('label'=>'Denunciante'))
+		
+		->add('tipocli', null, array('label'=>'Tipo Cliente'))
+		->add('empresaid', null, array('label'=>'Empresa'))            
+		->add('hsllamada', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Llamada', 'required' => false))
+		->add('codaut', null, array('label'=>'Autorización'))
+		->add('denunciante', null, array('label'=>'Denunciante'))
 
-            ->add('clienteid', null, array('label'=>'Asegurado'))
-	    ->add('telefono')
-	    ->add('marcaid', null, array('label'=>'Marca'))
-	    ->add('modeloid', null, array('label'=>'Modelo'))
-	    ->add('colorid', null, array('label'=>'Color'))
+		->add('clienteid', ModelListType::class, array('label'=>'Asegurado', 'btn_add'=>false, 'btn_delete'=>false, 'required'=>false))
+		->add('nombre')
+		->add('dominio')
+		->add('telefono')
+		->add('marcaid', null, array('label'=>'Marca'));
+		
+		$container = $this->getConfigurationPool()->getContainer();
+		$dependant_entities = $container->getParameter('application_tools.dependent_filtered_entities');
 
-	    ->add('provinciaid')
-            ->add('localidadid')
-            ->add('calle')
-            ->add('numero')
-            ->add('depto')
-            ->add('lote')
-            ->add('manzana')
-            ->add('casa')
-            ->add('falla')
-	    
-	    ->add('provinciadestid')
-            ->add('localidaddestid')	    
-            ->add('destino')
+		$subscriber = $container->get('application_tools.dependent_filtered_entity_subscriber');
 
-            ->add('kmini')
-            ->add('kmfin')
+		$form_options = $dependant_entities['modelo_by_marca']['form_options'];
+		$form_options = array_merge($form_options, array('required'=>false));
 
-            ->add('hsasignacion', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Asignación'))
-            ->add('hsarribo', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Arribo'))
-            ->add('hsfinalizacion', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Finalización'))
+		$formMapper->add('modeloid', DependentFilteredEntityType::class, $form_options);
+		$subscriber->addField('modeloid', $form_options);
+
+		$formMapper->getFormBuilder()->addEventSubscriber($subscriber);
+		
+		$formMapper
+		//->add('modeloid', null, array('label'=>'Modelo'))
+		->add('colorid', null, array('label'=>'Color'))
+
+		->add('provinciaid');		
+		
+		//->add('localidadid')		
+		$container = $this->getConfigurationPool()->getContainer();
+		$dependant_entities = $container->getParameter('application_tools.dependent_filtered_entities');
+
+		$subscriber = $container->get('application_tools.dependent_filtered_entity_subscriber');
+
+		$form_options = $dependant_entities['localidad_by_provincia']['form_options'];
+		$form_options = array_merge($form_options, array('required'=>false));
+
+		$formMapper->add('localidadid', DependentFilteredEntityType::class, $form_options);
+		$subscriber->addField('localidadid', $form_options);
+
+		$formMapper->getFormBuilder()->addEventSubscriber($subscriber);
+		
+		$formMapper
+		->add('calle')
+		->add('numero')
+		->add('depto')
+		->add('lote')
+		->add('manzana')
+		->add('casa')
+		->add('fallaid', ModelAutoCompleteType::class, [
+			'property' => 'falla',
+			'btn_add' => 'Agregar Falla'
+		])
+		->add('destino')
+	
+		->add('provinciadestid');
+		
+		//->add('localidaddestid')
+
+		$container = $this->getConfigurationPool()->getContainer();
+		$dependant_entities = $container->getParameter('application_tools.dependent_filtered_entities');
+
+		$subscriber = $container->get('application_tools.dependent_filtered_entity_subscriber');
+
+		$form_options = $dependant_entities['localidaddest_by_provinciadest']['form_options'];
+		$form_options = array_merge($form_options, array('required'=>false));
+
+		$formMapper->add('localidaddestid', DependentFilteredEntityType::class, $form_options);
+		$subscriber->addField('localidaddestid', $form_options);
+
+		$formMapper->getFormBuilder()->addEventSubscriber($subscriber);
+		
+		$formMapper
+		->add('destino')
+
+		->add('kmini')
+		->add('kmfin')
+
+		->add('hsasignacion', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Asignación', 'required' => false))
+		->add('hsarribo', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Arribo', 'required' => false))
+		->add('hsfinalizacion', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Finalización', 'required' => false))
 
 
-            ->add('movilid')
-            ->add('choferid', null, array('label'=>'Mecánico'))
-            ->add('tipoid', null, array('label'=>'Tipo Servicio'))
+		->add('movilid')
+		->add('choferid', null, array('label'=>'Mecánico'))
+		->add('tipoid', null, array('label'=>'Tipo Servicio'))
+		
+		->add('tipodist', null, array('label'=>'Distancia'))
+		
 	    ->add('tipoestado', null, array('label'=>'Estado'))
 	    
 	    
 	    ->add('impbase')
 	    ->add('impcob')
 	    
-	    ->add('obs')
-            ;
+	    ->add('obs');
+		
+		
+		
+		
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void

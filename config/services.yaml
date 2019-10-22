@@ -26,6 +26,20 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    application_tools.type.dependent_filtered_entity:
+        public: true
+        class: App\Application\ToolsBundle\Form\Type\DependentFilteredEntityType
+        arguments: ["@doctrine", "@property_accessor"]
+        tags:
+            - { name: form.type, alias: apptools_dependent_filtered_entity }
+       
+    application_tools.dependent_filtered_entity_subscriber:
+        public: true
+        class: App\Application\ToolsBundle\Form\EventListener\DependentFilteredEntitySubscriber
+        arguments: ["@property_accessor"]
+        tags:
+            - { name: form.type, alias: apptools_dependent_filtered_entity_subscriber } 
+
     admin.color:
         class: App\Admin\ColorAdmin
         arguments: [~, App\Entity\Color, ~]
@@ -99,8 +113,10 @@ services:
     admin.servicio:
         class: App\Admin\ServicioAdmin
         arguments: [~, App\Entity\Servicio, ~]
+        calls:
+            - [setTemplate, ['edit', '\ServicioAdmin\edit.html.twig']]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Servicios, icon: '<i class="fa fa-truck"></i>' }
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Servicios pendientes, icon: '<i class="fa fa-truck"></i>' }
         public: true
 
     admin.tiposervicio:

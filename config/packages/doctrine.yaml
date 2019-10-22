@@ -17,8 +17,9 @@ doctrine:
             default:
                 mappings:
                     SonataUserBundle: ~
-                    #FOSUserBundle: ~
+                    FOSUserBundle: ~
                     ApplicationSonataUserBundle: ~
+                    ApplicationToolsBundle: ~ 					
                     App:
                         is_bundle: false
                         type: annotation
