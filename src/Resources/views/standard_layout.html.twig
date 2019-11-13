@@ -258,6 +258,9 @@ file that was distributed with this source code.
 
             <div class="content-wrapper">
                 {% block sonata_page_content %}
+				
+					{% if admin is defined and action is defined and action == 'list' and admin.listModes|length > 1 %}
+				
                     <section class="content-header">
 
                         {% block sonata_page_content_header %}
@@ -319,6 +322,8 @@ file that was distributed with this source code.
                             {% endblock sonata_page_content_nav %}
                         {% endblock sonata_page_content_header %}
                     </section>
+					
+					{% endif %}
 
                     <section class="content">
                         {% block sonata_admin_content %}

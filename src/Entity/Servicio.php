@@ -655,7 +655,18 @@ class Servicio
      *   @ORM\JoinColumn(name="tipoestado", referencedColumnName="ID")
      * })
      */
-    private $tipoestado;    
+    private $tipoestado;
+	
+	
+    /**
+     * @var \Prioridad
+     *
+     * @ORM\ManyToOne(targetEntity="Prioridad")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="prioridadid", referencedColumnName="ID")
+     * })
+     */
+    private $prioridadid = NULL;
     
 
     public function getNrocaso()
@@ -1655,6 +1666,18 @@ class Servicio
     public function setTipoestado(?Tipoestado $tipoestado): self
     {
         $this->tipoestado = $tipoestado;
+
+        return $this;
+    }
+	
+	public function getPrioridadid()
+    {
+        return $this->prioridadid;
+    }
+
+    public function setPrioridadid($prioridadid): self
+    {
+        $this->prioridadid = $prioridadid;
 
         return $this;
     }

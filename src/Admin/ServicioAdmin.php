@@ -16,6 +16,9 @@ use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
+
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
@@ -33,54 +36,28 @@ final class ServicioAdmin extends AbstractAdmin
         '_sort_order' => 'DESC',
         '_sort_by' => 'id',
     ];
+	
     
     public function createQuery($context = 'list'){
-	$query = parent::createQuery($context);
-	
-        $rootAlias = $query->getRootAliases()[0];
-	
-	//if(count($this->getRequest()->query->all()) == 0){
-            $query
-                ->andWhere($query->expr()->isNull($rootAlias . '.hsfinalizacion'));   
-	//}
-	return $query;
+		$query = parent::createQuery($context);
+		
+			$rootAlias = $query->getRootAliases()[0];
+		
+		//if(count($this->getRequest()->query->all()) == 0){
+				$query
+					->andWhere($query->expr()->isNull($rootAlias . '.hsfinalizacion'))
+					->orderBy($rootAlias.'.prioridadid', 'DESC');   
+		//}
+		return $query;
     
     }
     
-    /*protected function configureDefaultFilterValues(array &$filterValues)
-    {
- 	$now = new \DateTime('now');
-    
-	$filterValues['tipoestado'] = [
-		'value' => '1',
-	];
-	
-	$filterValues['anio'] = [
-		'value' => $now->format('Y'),
-	];
-	
-	$filterValues['mes'] = [
-		'value' => $now->format('m'),
-	];
-    }*/
-    
-    /*public function getFilterParameters(){
-	$now = new \DateTime('now');
-	$this->datagridValues = array_merge(
-		array(
-			'tipoestado' => array('value' => '1'), 
-			'anio' => array('value' => $now->format('Y')),
-			'mes' => array('value' => $now->format('m'))
-		), $this->datagridValues);
-	return parent::getFilterParameters();
-    }*/
-
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-            ->add('nrocaso')
+            //->add('nrocaso')
             //->add('clienteid')
-            ->add('nombre')
+            //->add('nombre')
             //->add('tipoid')
             //->add('tipo')
             //->add('denunciante')
@@ -95,7 +72,19 @@ final class ServicioAdmin extends AbstractAdmin
             /*->add('lote')
             ->add('manzana')
             ->add('localidad')*/
-            ->add('provincia')
+            ->add('provinciaid', 'doctrine_orm_choice', array(
+				'show_filter' => true,
+				'label' => 'Provincia'), 
+				ChoiceType::class, 
+				array(
+					'choices' => array(
+						'Tucumán' => 25,  // The key (value1) will contain the actual value that you want to filter on
+						'Sgo. del Estero' => 23,  // The 'Name Two' is the "display" name in the filter
+				), 
+				'expanded' => true,    
+				'multiple' => false,
+				'attr' => array('style' => 'margin-top: 7px;')),				
+			)
            /*->add('destino')
             ->add('localidaddest')
             ->add('kilometros')
@@ -106,10 +95,10 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('hsllamada')
             ->add('hsasignacion')
             ->add('hsarribo')*/
-            ->add('hsfinalizacion')
-            ->add('tipoestado', null, array('label' => 'Estado'/*, 'show_filter' => true*/))
-	    ->add('anio', null, array('label' => 'Año'/*, 'show_filter' => true*/))
-            ->add('mes', null, array('label' => 'Mes'/*, 'show_filter' => true*/))            
+            //->add('hsfinalizacion')
+            //->add('tipoestado', null, array('label' => 'Estado'/*, 'show_filter' => true*/))
+			//->add('anio', null, array('label' => 'Año'/*, 'show_filter' => true*/))
+            //->add('mes', null, array('label' => 'Mes'/*, 'show_filter' => true*/))            
             /*->add('opini')
             ->add('opfin')
             ->add('movilid')
@@ -254,7 +243,7 @@ final class ServicioAdmin extends AbstractAdmin
 	$now = new \DateTime();
     
         $formMapper
-		
+		->add('prioridadid', null, array('label'=>'prioridad'))
 		->add('tipocli', null, array('label'=>'Tipo Cliente'))
 		->add('empresaid', null, array('label'=>'Empresa'))            
 		->add('hsllamada', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Llamada', 'required' => false))
@@ -353,13 +342,10 @@ final class ServicioAdmin extends AbstractAdmin
 	    ->add('impbase')
 	    ->add('impcob')
 	    
-	    ->add('obs');
-		
-		
-		
-		
+	    ->add('obs');		
     }
-
+	
+	
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper

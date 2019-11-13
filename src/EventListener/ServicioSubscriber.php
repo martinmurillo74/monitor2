@@ -6,6 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use App\Entity\Servicio;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\Events;
 
 class ServicioSubscriber implements EventSubscriber {
 
@@ -17,9 +18,13 @@ class ServicioSubscriber implements EventSubscriber {
 
 
     public function getSubscribedEvents() {
-        return array(
-            'prePersist'
-        );
+        return [
+			//Events::prePersist,
+			Events::preUpdate
+		]/*(
+            'prePersist',
+			'postUpdate'
+        )*/;
     }
     
     public function isEntitySupported($entity) {
@@ -30,9 +35,23 @@ class ServicioSubscriber implements EventSubscriber {
         return $supported;
     }
 
-    public function prePersist(LifecycleEventArgs $args) {
+    public function postUpdate(LifecycleEventArgs $args) {
         $this->index($args);
     }
+	
+	public function preUpdate(LifecycleEventArgs $args) {
+		$this->updateNombreyDominio($args);
+    }
+	
+	public function updateNombreyDominio(LifecycleEventArgs $args){
+	        $entity = $args->getEntity();
+			if ($entity instanceof Servicio) {
+				if($entity->getClienteid()){
+					$entity->setNombre($entity->getClienteid()->getNombre());
+					$entity->setDominio($entity->getClienteid()->getDominio());
+				}
+			}
+	}
 
     public function index(LifecycleEventArgs $args) {
 	
@@ -62,6 +81,12 @@ class ServicioSubscriber implements EventSubscriber {
                 $nuevonumero = 1;
             } 
 
+			
+			if($entity->getClienteid()){
+				$entity->setNombre($entity->getClienteid()->getNombre());
+			}
+			
+			
             $entity->setNrocaso($nuevonumero);
             $entity->setAnio($anio);
             $entity->setMes($mes);

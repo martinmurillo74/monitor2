@@ -44,56 +44,56 @@ services:
         class: App\Admin\ColorAdmin
         arguments: [~, App\Entity\Color, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Config, label: Color }
+            - { name: sonata.admin, manager_type: orm, group: Info. General, label: Color }
         public: true
 
     admin.motivo:
         class: App\Admin\MotivoAdmin
         arguments: [~, App\Entity\Motivo, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Config, label: Motivo }
+            - { name: sonata.admin, manager_type: orm, group: Info. General, label: Motivo }
         public: true
 
     admin.marca:
         class: App\Admin\MarcaAdmin
         arguments: [~, App\Entity\Marca, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Config, label: Marca }
+            - { name: sonata.admin, manager_type: orm, group: Info. General, label: Marca }
         public: true
 
     admin.modelo:
         class: App\Admin\ModeloAdmin
         arguments: [~, App\Entity\Modelo, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Config, label: Modelo }
+            - { name: sonata.admin, manager_type: orm, group: Info. General, label: Modelo }
         public: true
 
     admin.provincia:
         class: App\Admin\ProvinciaAdmin
         arguments: [~, App\Entity\Provincia, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Config, label: Provincia }
+            - { name: sonata.admin, manager_type: orm, group: Info. General, label: Provincia }
         public: true
 
     admin.localidad:
         class: App\Admin\LocalidadAdmin
         arguments: [~, App\Entity\Localidad, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Config, label: Localidad }
+            - { name: sonata.admin, manager_type: orm, group: Info. General, label: Localidad }
         public: true
 
     admin.falla:
         class: App\Admin\FallaAdmin
         arguments: [~, App\Entity\Falla, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Config, label: Falla }
+            - { name: sonata.admin, manager_type: orm, group: Info. General, label: Falla }
         public: true
 
     admin.distancia:
         class: App\Admin\DistanciaAdmin
         arguments: [~, App\Entity\Distancia, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Config, label: Distancia }
+            - { name: sonata.admin, manager_type: orm, group: Info. General, label: Distancia }
         public: true
 
     admin.empresa:
@@ -115,6 +115,7 @@ services:
         arguments: [~, App\Entity\Servicio, ~]
         calls:
             - [setTemplate, ['edit', '\ServicioAdmin\edit.html.twig']]
+            - [setTemplate, ['list', '\ServicioAdmin\base_list.html.twig']]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Servicios, label: Servicios pendientes, icon: '<i class="fa fa-truck"></i>' }
         public: true
@@ -161,4 +162,9 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
-
+    admin.prioridad:
+        class: App\Admin\PrioridadAdmin
+        arguments: [~, App\Entity\Prioridad, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Info. General, label: Prioridad }
+        public: true
