@@ -171,7 +171,7 @@ file that was distributed with this source code.
 				</div>
 
 
-				<div class="panel box box-primary" style="margin-bottom: 0px;">
+				<!--div class="panel box box-primary" style="margin-bottom: 0px;">
 					<div class="box-header">
 						<h4 class="box-title">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" class="collapsed">
@@ -182,7 +182,7 @@ file that was distributed with this source code.
 					<div id="collapseFour" class="" aria-expanded="true" style="">
 						<div class="box-body">
 							<div class="col-md-2">
-								{{ form_row(form.kmini) }}
+								{#{ form_row(form.kmini) }}
 							</div>
 							<div class="col-md-2">
 								{{ form_row(form.kmfin) }}
@@ -194,11 +194,11 @@ file that was distributed with this source code.
 								{{ form_row(form.hsarribo) }}
 							</div>
 							<div class="col-md-2">
-								{{ form_row(form.hsfinalizacion) }}
+								{{ form_row(form.hsfinalizacion) }#}
 							</div>						
 						</div>
 					</div>	
-				</div>
+				</div-->
 				
 	
 				<div class="panel box box-primary" style="margin-bottom: 0px;">
@@ -211,12 +211,9 @@ file that was distributed with this source code.
 					</div>
 					<div id="collapseFive" class="" aria-expanded="true" style="">
 						<div class="box-body">
-							<div class="col-md-2">
-								{{ form_row(form.movilid) }}
-							</div>
-							<div class="col-md-2">
-								{{ form_row(form.choferid) }}
-							</div>												
+							<div class="col-md-12">
+								{{ form_row(form.movilId) }}
+							</div>											
 						</div>	
                     </div>							
 				</div>

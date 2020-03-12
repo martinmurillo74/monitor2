@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -334,14 +336,9 @@ class Servicio
     private $opfin = NULL;
 
     /**
-     * @var \Movil
-     *
-     * @ORM\ManyToOne(targetEntity="Movil")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="movilid", referencedColumnName="ID")
-     * })
+     * @ORM\OneToMany(targetEntity="ServicioMovil", mappedBy="servicio", cascade={"all"}, orphanRemoval=true)
      */
-    private $movilid = NULL;
+    private $movilId;
 
     /**
      * @var \Chofer
@@ -667,6 +664,11 @@ class Servicio
      * })
      */
     private $prioridadid = NULL;
+    
+    public function __construct()
+    {
+        $this->movilId = new ArrayCollection();
+    }
     
 
     public function getNrocaso()
@@ -1150,18 +1152,6 @@ class Servicio
     public function setOpfin(?string $opfin): self
     {
         $this->opfin = $opfin;
-
-        return $this;
-    }
-
-    public function getMovilid()
-    {
-        return $this->movilid;
-    }
-
-    public function setMovilid($movilid): self
-    {
-        $this->movilid = $movilid;
 
         return $this;
     }
@@ -1671,13 +1661,51 @@ class Servicio
     }
 	
 	public function getPrioridadid()
-    {
-        return $this->prioridadid;
-    }
+                   {
+                       return $this->prioridadid;
+                   }
 
     public function setPrioridadid($prioridadid): self
     {
         $this->prioridadid = $prioridadid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ServicioMovil[]
+     */
+    public function getMovilId(): Collection
+    {
+        return $this->movilId;
+    }
+    
+    public function setMovilId($movilId) {
+        $this->movilId = $movilId;
+        foreach ($movilId as $item) {
+            $item->setServicio($this);
+        }
+    }
+
+    public function addMovilId(ServicioMovil $movilId): self
+    {
+        if (!$this->movilId->contains($movilId)) {
+            $this->movilId[] = $movilId;
+            $movilId->setServicio($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMovilId(ServicioMovil $movilId): self
+    {
+        if ($this->movilId->contains($movilId)) {
+            $this->movilId->removeElement($movilId);
+            // set the owning side to null (unless already changed)
+            if ($movilId->getServicio() === $this) {
+                $movilId->setServicio(null);
+            }
+        }
 
         return $this;
     }

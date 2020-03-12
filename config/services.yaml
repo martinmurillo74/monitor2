@@ -116,6 +116,7 @@ services:
         calls:
             - [setTemplate, ['edit', '\ServicioAdmin\edit.html.twig']]
             - [setTemplate, ['list', '\ServicioAdmin\base_list.html.twig']]
+            - [ addChild, ["@admin.servicio_movil"]] 
         tags:
             - { name: sonata.admin, manager_type: orm, group: Servicios, label: Servicios pendientes, icon: '<i class="fa fa-truck"></i>' }
         public: true
@@ -167,4 +168,11 @@ services:
         arguments: [~, App\Entity\Prioridad, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Info. General, label: Prioridad }
+        public: true
+
+    admin.servicio_movil:
+        class: App\Admin\ServicioMovilAdmin
+        arguments: [~, App\Entity\ServicioMovil, App\Controller\ServicioMovilAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: ServicioMovil }
         public: true

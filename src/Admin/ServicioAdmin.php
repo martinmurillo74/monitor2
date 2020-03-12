@@ -24,7 +24,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormTypeInterface;
-
+use Sonata\CoreBundle\Form\Type\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Application\ToolsBundle\Form\Type\DependentFilteredEntityType;
 
 
@@ -322,16 +323,21 @@ final class ServicioAdmin extends AbstractAdmin
 		$formMapper
 		->add('destino')
 
-		->add('kmini')
-		->add('kmfin')
+//		->add('kmini')
+//		->add('kmfin')
+//
+//		->add('hsasignacion', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Asignación', 'required' => false))
+//		->add('hsarribo', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Arribo', 'required' => false))
+//		->add('hsfinalizacion', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Finalización', 'required' => false))
 
-		->add('hsasignacion', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Asignación', 'required' => false))
-		->add('hsarribo', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Arribo', 'required' => false))
-		->add('hsfinalizacion', DatePickerType::class, array('format' => 'yyyy-MM-dd hh:mm', 'label'=>'Finalización', 'required' => false))
 
-
-		->add('movilid')
-		->add('choferid', null, array('label'=>'Mecánico'))
+		->add('movilId', CollectionType::class, array('label' => "Movil", 'btn_add' => 'Agregar Movil'), array(
+                    'edit' => 'inline',
+                    'allow_delete' => true,
+                    'inline' => 'table'))
+   
+		//->add('choferid', null, array('label'=>'Mecánico'))
+                        
 		->add('tipoid', null, array('label'=>'Tipo Servicio'))
 		
 		->add('tipodist', null, array('label'=>'Distancia'))
@@ -425,5 +431,13 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('ciermov')
             ->add('otros')
             ;
+    }
+    
+    public function prePersist($object) {
+        $object->setMovilId($object->getMovilId());
+    }
+
+    public function preUpdate($object) {
+        $object->setMovilId($object->getMovilId());
     }
 }
