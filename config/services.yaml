@@ -120,6 +120,22 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Servicios, label: Servicios pendientes, icon: '<i class="fa fa-truck"></i>' }
         public: true
+        
+    admin.serviciohis:
+        class: App\Admin\ServiciohisAdmin
+        arguments: [~, App\Entity\Servicio, ~]
+        calls:
+            - [setTemplate, ['edit', '\ServicioAdmin\edit.html.twig']]
+            - [setTemplate, ['list', '\ServicioAdmin\base_list.html.twig']]
+            - [ addChild, ["@admin.servicio_movil"]] 
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Servicios, label: Historial de Servicios, icon: '<i class="fa fa-truck"></i>' }
+        public: true        
+        
+        
+        
+        
+        
 
     admin.tiposervicio:
         class: App\Admin\TiposervicioAdmin
