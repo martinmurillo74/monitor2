@@ -50,13 +50,13 @@ file that was distributed with this source code.
 					<div id="collapseOne" class="" aria-expanded="true" style="">
 						<div class="box-body" id="collapseOne">
 							<div class="col-md-2">
+								{{ form_row(form.empresaid) }}
+							</div>
+							<div class="col-md-2">
 								{{ form_row(form.prioridadid) }}
 							</div>
 							<div class="col-md-2">
 								{{ form_row(form.tipocli) }}
-							</div>
-							<div class="col-md-2">
-								{{ form_row(form.empresaid) }}
 							</div>
 							<div class="col-md-2">
 								{{ form_row(form.hsllamada) }}
@@ -316,5 +316,34 @@ file that was distributed with this source code.
 	{% endif %}
 	
 	{{ sonata_block_render_event('sonata.admin.edit.form.bottom', { 'admin': admin, 'object': object }) }}
+	
+{% endblock %}
 
+{% block javascripts %}
+{{ parent() }}
+<script>
+$( document ).ready(function() {
+	
+	var mi_array = ['3', '22', '55'];
+	$('#{{ form.vars.id }}_empresaid').change(function(){
+		if( mi_array.includes($(this).val())){
+			$('#{{ form.vars.id }}_prioridadid').val(3)
+		}else $('#{{ form.vars.id }}_prioridadid').val('')
+	});	
+	
+	var mi_provincia = {{ app.request.session.get('admin.servicio.filter.parameters').provinciaid.value }}
+	$('#{{ form.vars.id }}_provinciaid').val(mi_provincia)
+	
+	switch(mi_provincia){
+		case 23:
+			$('#{{ form.vars.id }}_localidadid').val(2206)			
+		break;
+		case 25:
+			$('#{{ form.vars.id }}_localidadid').val(2383)
+		break;			
+	}
+	
+	
+});
+</script>
 {% endblock %}

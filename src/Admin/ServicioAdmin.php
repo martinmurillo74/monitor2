@@ -28,7 +28,6 @@ use Sonata\CoreBundle\Form\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Application\ToolsBundle\Form\Type\DependentFilteredEntityType;
 
-
 final class ServicioAdmin extends AbstractAdmin
 {
 
@@ -240,9 +239,15 @@ final class ServicioAdmin extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $formMapper): void
     {
+	
+	 $filterParameters = $this->getFilterParameters();
+	 
+	 $provincia = $filterParameters["provinciaid"]['value'];
+	 
+	
     
 	$now = new \DateTime();
-    
+	
         $formMapper
 		->add('prioridadid', null, array('label'=>'prioridad'))
 		->add('tipocli', null, array('label'=>'Tipo Cliente'))
@@ -274,7 +279,7 @@ final class ServicioAdmin extends AbstractAdmin
 		//->add('modeloid', null, array('label'=>'Modelo'))
 		->add('colorid', null, array('label'=>'Color'))
 
-		->add('provinciaid');		
+		->add('provinciaid', null, array('label' => 'Provincia'));		
 		
 		//->add('localidadid')		
 		$container = $this->getConfigurationPool()->getContainer();

@@ -79,8 +79,7 @@ class ServicioSubscriber implements EventSubscriber {
                 $em->flush();
                 
                 $nuevonumero = 1;
-            } 
-
+            }
 			
 			if($entity->getClienteid()){
 				$entity->setNombre($entity->getClienteid()->getNombre());
