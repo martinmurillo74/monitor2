@@ -74,7 +74,8 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('localidad')*/
             ->add('provinciaid', 'doctrine_orm_choice', array(
 				'show_filter' => true,
-				'label' => 'Provincia'), 
+				'label' => 'Provincia', 
+                                'required' => true), 
 				ChoiceType::class, 
 				array(
 					'choices' => array(
@@ -83,8 +84,12 @@ final class ServicioAdmin extends AbstractAdmin
 				), 
 				'expanded' => true,    
 				'multiple' => false,
-				'attr' => array('style' => 'margin-top: 7px;')),				
+				'attr' => array('style' => 'margin-top: 7px;'),
+                                'required' => true,
+                                'placeholder' => false,
+                                ),  
 			)
+            ;
            /*->add('destino')
             ->add('localidaddest')
             ->add('kilometros')
