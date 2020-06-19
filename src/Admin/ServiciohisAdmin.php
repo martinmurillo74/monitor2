@@ -66,7 +66,8 @@ final class ServiciohisAdmin extends AbstractAdmin
 	    ->add('modeloid', null, array('label'=>'Modelo'))
             ->add('destino')
             ->add('hsllamada', 'date', array('label'=>'Llamada', 'format' => 'd/m/Y h:m'))
-            ->add('choferid', null, array('label'=>'Chofer'))
+            //->add('choferid', null, array('label'=>'Chofer'))
+			->add('choferServicio', null, array('label'=>'Chofer'))
             ->add('empresaid', null, array('label'=>'Empresa'))
             ->add('_action', null, [
                 'actions' => [

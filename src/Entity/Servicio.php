@@ -1709,5 +1709,17 @@ class Servicio
 
         return $this;
     }
+	
+	public function choferServicio(){
+		$movil = $this->getMovilId();
+		$chofer = '';
+		$separador = '';
+		foreach ($movil as $item) {
+            $chofer .= $item->getChofer($this).$separador;
+			$separador = ' - ';
+        }
+		return $chofer;
+	}
+	
 
 }
