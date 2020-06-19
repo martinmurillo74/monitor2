@@ -24,7 +24,7 @@ class Tipoestado
     /**
      * @var string|null
      *
-     * @ORM\Column(name="ESTADO", type="string", length=30, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="ESTADO", type="string", length=30, nullable=true, options={"default" = NULL})
      */
     private $estado = NULL;
     

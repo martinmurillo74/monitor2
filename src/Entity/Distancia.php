@@ -24,7 +24,7 @@ class Distancia
     /**
      * @var string|null
      *
-     * @ORM\Column(name="distancia", type="string", length=30, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="distancia", type="string", length=30, nullable=true, options={"default" = NULL})
      */
     private $distancia = NULL;
     

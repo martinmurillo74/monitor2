@@ -19,7 +19,7 @@ class ServicioSubscriber implements EventSubscriber {
 
     public function getSubscribedEvents() {
         return [
-			//Events::prePersist,
+			Events::prePersist,
 			Events::preUpdate
 		]/*(
             'prePersist',
@@ -35,7 +35,7 @@ class ServicioSubscriber implements EventSubscriber {
         return $supported;
     }
 
-    public function postUpdate(LifecycleEventArgs $args) {
+    public function prePersist(LifecycleEventArgs $args) {
         $this->index($args);
     }
 	

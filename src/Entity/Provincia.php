@@ -24,14 +24,14 @@ class Provincia
     /**
      * @var string|null
      *
-     * @ORM\Column(name="PROVINCIA", type="string", length=100, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="PROVINCIA", type="string", length=100, nullable=true, options={"default" = NULL})
      */
     private $provincia = NULL;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="ABREV", type="string", length=4, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="ABREV", type="string", length=4, nullable=true, options={"default" = NULL})
      */
     private $abrev = NULL;
     

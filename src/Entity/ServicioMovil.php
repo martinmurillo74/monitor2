@@ -54,49 +54,49 @@ class ServicioMovil
     /**
      * @var float|null
      *
-     * @ORM\Column(name="IMPBASE", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="IMPBASE", type="float", precision=10, scale=0, nullable=true, options={"default"=NULL})
      */
     private $impbase = NULL;
     
     /**
      * @var float|null
      *
-     * @ORM\Column(name="IMPCOB", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="IMPCOB", type="float", precision=10, scale=0, nullable=true, options={"default" = NULL})
      */
     private $impcob = NULL;
     
     /**
      * @var int|null
      *
-     * @ORM\Column(name="KMINI", type="integer", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="KMINI", type="integer", nullable=true, options={"default" = NULL})
      */
     private $kmini = NULL;
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="KMFIN", type="integer", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="KMFIN", type="integer", nullable=true, options={"default" = NULL})
      */
     private $kmfin = NULL;
     
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="HSASIGNACION", type="datetime", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="HSASIGNACION", type="datetime", nullable=true, options={"default" = NULL})
      */
     private $hsasignacion = NULL;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="HSARRIBO", type="datetime", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="HSARRIBO", type="datetime", nullable=true, options={"default" = NULL})
      */
     private $hsarribo = NULL;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="HSFINALIZACION", type="datetime", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="HSFINALIZACION", type="datetime", nullable=true, options={"default" = NULL})
      */
     private $hsfinalizacion = NULL;
     
