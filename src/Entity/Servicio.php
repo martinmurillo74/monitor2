@@ -1715,7 +1715,7 @@ class Servicio
 		$chofer = '';
 		$separador = '';
 		foreach ($movil as $item) {
-            $chofer .= $item->getChofer($this).$separador;
+            $chofer .= $separador.$item->getChofer($this);
 			$separador = ' - ';
         }
 		return $chofer;

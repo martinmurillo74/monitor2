@@ -9,6 +9,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelListType;
+
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
+
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -81,12 +84,13 @@ final class ServiciohisAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
 	
-	 $filterParameters = $this->getFilterParameters();
-	 
-	 $provincia = $filterParameters["provinciaid"]['value'];
-	 
+	$provincia = '';
 	
-    
+	$filterParameters = $this->getFilterParameters();
+	
+	 if(isset($filterParameters["provinciaid"]))	 
+		$provincia = $filterParameters["provinciaid"]['value'];
+
 	$now = new \DateTime();
 	
         $formMapper

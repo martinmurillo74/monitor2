@@ -331,6 +331,9 @@ $( document ).ready(function() {
 		}else $('#{{ form.vars.id }}_prioridadid').val('')
 	});	
 	
+	
+	{% if app.request.session.get('admin.servicio.filter.parameters') is not empty %}
+	
 	var mi_provincia = {{ app.request.session.get('admin.servicio.filter.parameters').provinciaid.value }}
 	$('#{{ form.vars.id }}_provinciaid').val(mi_provincia)
 	
@@ -342,6 +345,8 @@ $( document ).ready(function() {
 			$('#{{ form.vars.id }}_localidadid').val(2383)
 		break;			
 	}
+	
+	{% endif %}
 	
 	
 });

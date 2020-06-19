@@ -45,7 +45,8 @@ final class ServicioAdmin extends AbstractAdmin
 		
 		//if(count($this->getRequest()->query->all()) == 0){
 				$query
-					->andWhere($query->expr()->isNull($rootAlias . '.hsfinalizacion'))
+					->leftJoin($rootAlias . '.movilId', 'sm')
+					->andWhere($query->expr()->isNull('sm.hsfinalizacion'))
 					->orderBy($rootAlias.'.prioridadid', 'DESC');   
 		//}
 		return $query;
@@ -246,9 +247,12 @@ final class ServicioAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
 	
+	 $provincia = '';
+	
 	 $filterParameters = $this->getFilterParameters();
 	 
-	 $provincia = $filterParameters["provinciaid"]['value'];
+	 if(isset($filterParameters["provinciaid"]))	 
+		$provincia = $filterParameters["provinciaid"]['value'];
 	 
 	
     
