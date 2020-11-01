@@ -109,8 +109,10 @@ final class ServicioAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-	    ->add('id', null, array('label'=>'Caso'))
-            //->add('nrocaso')
+	    ->add('id', null, array('label'=>'CasoID'))
+            ->add('nrocaso')
+            ->add('mes')
+            ->add('anio')
             //->add('clienteid')
             ->add('nombre')
             //->add('tipoid')
@@ -139,8 +141,6 @@ final class ServicioAdmin extends AbstractAdmin
             //->add('hsarribo')
             //->add('hsfinalizacion')
             //->add('estado')
-            //->add('mes')
-            //->add('anio')
             //->add('opini')
             //->add('opfin')
             //->add('movilid')
@@ -196,7 +196,9 @@ final class ServicioAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-	    ->add('nrocaso')
+	    //->add('nrocaso')
+            //->add('mes')
+            //->add('anio')
 	    ->add('tipocli')
 	    ->add('empresaid')
             ->add('empresa')
@@ -230,7 +232,7 @@ final class ServicioAdmin extends AbstractAdmin
             ->add('localidaddest')
             ->add('kilometros')
             
-            ->add('id')
+            //->add('id')
             ->add('piso')
             ->add('provinciadest')
             ->add('hsllamada')
